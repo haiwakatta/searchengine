@@ -25,7 +25,8 @@ public class Website {
 
     }
 
-    public boolean containsWord(String word) {
-        return this.words.contains(word);
+    public boolean containsWord(String word)
+    {
+        return this.words.contains(word); // the contains method return true if the string contains the argument
     }
 }
