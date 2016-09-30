@@ -7,7 +7,8 @@ import java.util.Scanner;
  * Modifed by Lucas to test github
  */
 public class SearchEngine {
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         System.out.println("Welcome to the Search Engine");
 
         // checks to see if the user provided only one argument
@@ -20,8 +21,9 @@ public class SearchEngine {
         System.out.println("Please enter a word");
 
         Scanner sc = new Scanner(System.in);
-        while (sc.hasNext()) {
-
+        while (sc.hasNext())
+        {
+            int dummie = 0;
             // reads each entry and stops if the entry is "quit"
             String line = sc.next();
             if (line.equals("quit"))
@@ -30,11 +32,15 @@ public class SearchEngine {
                 return;
             }
             // Search for line in the list of websites.
-            for (Website w: list) {
-                if (w.containsWord(line)) {
+            for (Website w: list)
+            {
+                if (w.containsWord(line))
+                {
                     System.out.println("Word found on " + w.getUrl());
+                    dummie = 1;
                 }
             }
+            if (dummie == 0) System.out.println("No website contains the query word.");
         }
 
     }
