@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="33456923-1603-4de4-9a2e-50013bd1aa67" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lec1/src/FileHelper.java" afterPath="$PROJECT_DIR$/lec1/src/FileHelper.java" />
     </list>
     <ignored path="WS-project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -617,7 +616,7 @@
       <workItem from="1475177142178" duration="3196000" />
       <workItem from="1475251833125" duration="347000" />
       <workItem from="1475260484731" duration="3677000" />
-      <workItem from="1475418173359" duration="1525000" />
+      <workItem from="1475418173359" duration="1580000" />
     </task>
     <task id="LOCAL-00001" summary="Commit for testing">
       <created>1475177234424</created>
@@ -647,11 +646,18 @@
       <option name="project" value="LOCAL" />
       <updated>1475265173951</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Final functionallity of Assigment 2 completed&#10;&quot;Modify the FileHelper such that it only creates a website if both the title is set and the word list contains at least one word.&quot;">
+      <created>1475419771420</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1475419771420</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8745000" />
+    <option name="totallyTimeSpent" value="8800000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1378" height="754" extended-state="0" />
@@ -700,7 +706,8 @@
     <MESSAGE value="Commit for testing" />
     <MESSAGE value="1) Added comments to make code more readable&#10;2) Added &quot;quit&quot; functionality that allow user to quit when typing the word" />
     <MESSAGE value="Added second functionality of assigment 2&#10;The program now prints if it did not find a word" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added second functionality of assigment 2&#10;The program now prints if it did not find a word" />
+    <MESSAGE value="Final functionallity of Assigment 2 completed&#10;&quot;Modify the FileHelper such that it only creates a website if both the title is set and the word list contains at least one word.&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Final functionallity of Assigment 2 completed&#10;&quot;Modify the FileHelper such that it only creates a website if both the title is set and the word list contains at least one word.&quot;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
