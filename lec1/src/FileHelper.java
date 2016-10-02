@@ -14,7 +14,7 @@ public class FileHelper {
         String url = null;
         String title = null;
         List<String> wordList = null;
-        int previousLine = 0; // previous line is going to store 1 for URL, 2 for title and 0 for words
+        boolean previousWord = true; // check if the previous line was a word
 
         // perform iterations in order to create the list of websites to be returned
         try
@@ -28,18 +28,23 @@ public class FileHelper {
                     // save the old one
                     if (url != null)
                     {
-                        result.add(new Website(url, title, wordList));
+                        if (previousWord == true)  // only add the entry if the last line read was a word
+                        {
+                            result.add(new Website(url, title, wordList));
+                        }
                     }
 
                     // if reaches new website, sets line and title to null and saves url
                     title = null;
                     wordList = null;
                     url = line.substring(6); // gets a substring from index 6 onwards
+                    previousWord = false;
                 }
 
                 else if (url != null && title == null)  // if it found an url, save the title
                 {
                     title = line;
+                    previousWord = false;
                 }
 
                 // add the words to the list
@@ -48,12 +53,15 @@ public class FileHelper {
                     if (wordList == null) // checks if the word for this website was initialized
                     {
                         wordList = new ArrayList<String>();
+                        previousWord = true;
                     }
                     wordList.add(line);
                 }
             }
-            if (url != null) {
-                result.add(new Website(url, title, wordList));
+
+            // prints the last entry
+            if (url != null && previousWord == true) {
+                result.add(new Website(url, title, wordList)); // only add the entry if the last line read was a word
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
