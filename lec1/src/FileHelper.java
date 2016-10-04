@@ -5,9 +5,22 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Created by maau on 27/09/16.
+ * This class takes care of reading an input database file and
+ * transforming it into {@code Website} objects.
+ *
+ * @author Martin Aumüller
  */
+
 public class FileHelper {
+
+    /**
+     * This methods transforms a database file into a list of {@code Website}
+     * objects. The list of words has the same order as the entries
+     * in the database file.
+     *
+     * @param arg the filename of the database
+     * @return the list of websites that are contained in the database file.
+     */
     public static List<Website> parseFile(String arg) {
 
         List<Website> result = new ArrayList<Website>();
@@ -28,7 +41,7 @@ public class FileHelper {
                     // save the old one
                     if (url != null)
                     {
-                        if (previousWord == true)  // only add the entry if the last line read was a word
+                        if (previousWord)  // only add the entry if the last line read was a word
                         {
                             result.add(new Website(url, title, wordList));
                         }
@@ -60,7 +73,7 @@ public class FileHelper {
             }
 
             // prints the last entry
-            if (url != null && previousWord == true) {
+            if (url != null && previousWord) {
                 result.add(new Website(url, title, wordList)); // only add the entry if the last line read was a word
             }
         } catch (FileNotFoundException e) {
