@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 /**
  * Created by maau on 27/09/16.
- * Modifed by Lucas to test github
  */
 public class SearchEngine {
     public static void main(String[] args)
@@ -25,7 +24,7 @@ public class SearchEngine {
         Scanner sc = new Scanner(System.in);
         while (sc.hasNext())
         {
-            int dummie = 0;
+            boolean foundWordInList = false;
             // reads each entry and stops if the entry is "quit"
             String line = sc.next();
             if (line.equals("quit"))
@@ -39,10 +38,10 @@ public class SearchEngine {
                 if (w.containsWord(line))
                 {
                     System.out.println("Word found on " + w.getUrl());
-                    dummie = 1;
+                    foundWordInList = true;
                 }
             }
-            if (dummie == 0) System.out.println("No website contains the query word.");
+            if (!foundWordInList) System.out.println("No website contains the query word.");
         }
 
     }

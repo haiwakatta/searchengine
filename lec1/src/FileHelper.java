@@ -14,6 +14,25 @@ import java.util.Scanner;
 public class FileHelper {
 
     /**
+     *  A method used to test if the entry of a website is valid,
+     *  checks if the url is not null, if title is not null and
+     *  if the list of words is not empty.
+     *
+     * @param url website's url
+     * @param title website's title
+     * @param words the list of words within the website
+     * @return true if valid and false if not valid
+     *
+     * @author Lucas Beck
+     */
+    public static boolean isEntryValid(String url, String title, List<String> words) {
+        if (url == null) return false;
+        if (title == null) return false;
+        if (words == null) return false;
+        return true;
+    }
+
+    /**
      * This methods transforms a database file into a list of {@code Website}
      * objects. The list of words has the same order as the entries
      * in the database file.
@@ -27,53 +46,48 @@ public class FileHelper {
         String url = null;
         String title = null;
         List<String> wordList = null;
-        boolean previousWord = true; // check if the previous line was a word
 
         // perform iterations in order to create the list of websites to be returned
         try
         { // try to read file, otherwise go to catch
             Scanner sc = new Scanner(new File(arg), "UTF-8");
             while (sc.hasNext()) {
+
                 String line = sc.next().trim();
-                if (line.startsWith("*PAGE:"))
-                {
+
+                if (line.startsWith("*PAGE:")) {
                     // new entry starts
                     // save the old one
-                    if (url != null)
-                    {
-                        if (previousWord)  // only add the entry if the last line read was a word
-                        {
-                            result.add(new Website(url, title, wordList));
-                        }
+                    if (isEntryValid(url, title, wordList)) { // only add the entry if entry is valid
+
+                        result.add(new Website(url, title, wordList));
                     }
+
 
                     // if reaches new website, sets line and title to null and saves url
                     title = null;
                     wordList = null;
                     url = line.substring(6); // gets a substring from index 6 onwards
-                    previousWord = false;
                 }
 
-                else if (url != null && title == null)  // if it found an url, save the title
-                {
+                else if (url != null && title == null) { // if it found an url, save the title
+
                     title = line;
-                    previousWord = false;
                 }
 
                 // add the words to the list
-                else if (url != null && title != null)
-                {
-                    if (wordList == null) // checks if the word for this website was initialized
-                    {
+                else if (url != null && title != null) {
+
+                    if (wordList == null) { // checks if the word for this website was initialized
+
                         wordList = new ArrayList<String>();
-                        previousWord = true;
                     }
                     wordList.add(line);
                 }
             }
 
             // prints the last entry
-            if (url != null && previousWord) {
+            if (isEntryValid(url, title, wordList)) {
                 result.add(new Website(url, title, wordList)); // only add the entry if the last line read was a word
             }
         } catch (FileNotFoundException e) {
