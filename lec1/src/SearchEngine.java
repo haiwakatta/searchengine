@@ -10,6 +10,8 @@ public class SearchEngine {
     public static void main(String[] args)
     {
         System.out.println("Welcome to the Search Engine");
+        System.out.println("To search for a word, type it in and press enter");
+        System.out.println("To exit the program, just type quit");
 
         // checks to see if the user provided only one argument
         if (args.length != 1) {
