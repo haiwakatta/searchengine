@@ -32,7 +32,7 @@ public class FileHelper {
         // perform iterations in order to create the list of websites to be returned
         try
         { // try to read file, otherwise go to catch
-            Scanner sc = new Scanner(new File(arg));
+            Scanner sc = new Scanner(new File(arg), "UTF-8");
             while (sc.hasNext()) {
                 String line = sc.next().trim();
                 if (line.startsWith("*PAGE:"))
