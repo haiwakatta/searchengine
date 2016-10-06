@@ -2,7 +2,7 @@ import java.util.List;
 
 /** The index creates a list of preprocessed website objects from a list of websites and a search query.
  *
- * @author Stefan
+ * @author Stefan Wachmann
  */
 public interface Index {
 

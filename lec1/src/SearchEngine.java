@@ -5,6 +5,10 @@ import java.util.Scanner;
 /**
  * Created by maau on 27/09/16.
  * Modifed by Lucas to test github
+ *
+ * @author Stefan Wachmann
+ * @author Lucas
+ * @author Hao
  */
 public class SearchEngine {
     public static void main(String[] args)
