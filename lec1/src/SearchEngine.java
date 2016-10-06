@@ -3,7 +3,8 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Created by maau on 27/09/16.
+ * SearchEngine reads a database of websites, take words as command line input and
+ * returns in which websites the particular word was found.
  */
 public class SearchEngine {
     public static void main(String[] args)
