@@ -15,13 +15,13 @@ public class FileHelper {
 
     /**
      *  A method used to test if the entry of a website is valid,
-     *  checks if the url is not null, if title is not null and
-     *  if the list of words is not empty.
+     *  an entry is valid if url is not null, title is not null and
+     *  list of words is not empty.
      *
      * @param url website's url
      * @param title website's title
      * @param words the list of words within the website
-     * @return true if valid and false if not valid
+     * @return true if valid.
      *
      * @author Lucas Beck
      */
