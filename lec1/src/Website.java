@@ -58,4 +58,16 @@ public class Website {
     {
         return this.words.contains(word); // the contains method return true if the string contains the argument
     }
+
+    /**
+     * Return the website's list of words
+     *
+     * @return the website's list of words
+     *
+     * @author Lucas Beck
+     */
+    public List<String> getWords() {
+
+        return this.words;
+    }
 }
