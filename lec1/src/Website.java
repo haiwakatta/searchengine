@@ -70,4 +70,23 @@ public class Website {
 
         return this.words;
     }
+
+    /**
+     * This method is used to compare two objects
+     *
+     * @param o any object
+     * @return true if equal
+     */
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Website website = (Website) o;
+
+        if (url != null ? !url.equals(website.url) : website.url != null) return false;
+        if (title != null ? !title.equals(website.title) : website.title != null) return false;
+        return words != null ? words.equals(website.words) : website.words == null;
+
+    }
+
 }

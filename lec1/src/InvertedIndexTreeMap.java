@@ -59,7 +59,7 @@ public class InvertedIndexTreeMap implements Index {
     public static boolean isWebsiteContained(List<Website> list, Website website)
     {
         for (Website w: list) {
-            if (w == website) return true;
+            if (w.equals(website)) return true;
         }
         return false;
     }
