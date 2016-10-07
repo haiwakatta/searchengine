@@ -16,22 +16,20 @@ public class InvertedIndexTreeMap implements Index {
                     if (!map.containsKey(currentWord)){ // if word has no websites associate with it yet, create a list of websites
 
                         List<Website> websitesPerWord = new ArrayList<Website>(); // create list of websites
-                        websitesPerWord.add(currentWebsite); // add current website to the list
                         map.put(currentWord, websitesPerWord);
                     }
-
-                    else { // else, add the current website to the list
-
+                        map.get(currentWord).add(currentWebsite); // add the currentwebsite to the list for the currentword
 
                     }
                 }
             }
 
 
-    }
+
 
     public List<Website> lookup(String word){
-        return null;
+
+        return map.get(word);
     }
 }
 
