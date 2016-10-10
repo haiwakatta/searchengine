@@ -67,7 +67,6 @@ public class SearchEngine {
                         System.out.println("Word found on " + w.getUrl());
                     }
                 }
-
             }
 
             // if the method choosen is the Hashmap
