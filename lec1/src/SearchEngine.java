@@ -58,6 +58,7 @@ public class SearchEngine {
 
             // if the method chosen is the SimpleIndex
             if (method.equals("1")) { // if entry starts with 1, use SimpleIndex
+                final double startTime = System.currentTimeMillis();
 
                 String word = line.substring(2);
                 if (mysimpleindex.lookup(word) == null)  {
@@ -69,11 +70,14 @@ public class SearchEngine {
                         System.out.println("Word found on " + w.getUrl());
                     }
                 }
+                final double endTime = System.currentTimeMillis();
+                System.out.println("Total execution time: " + (endTime - startTime));
             }
 
 
             // if the method chosen is the Treemap
             if (method.equals("2")) { // if entry starts with 2, use TreeMap
+                final double startTime = System.currentTimeMillis();
 
                 String word = line.substring(2);
                 if (mytreemap.lookup(word) == null)  {
@@ -85,10 +89,13 @@ public class SearchEngine {
                         System.out.println("Word found on " + w.getUrl());
                     }
                 }
+                final double endTime = System.currentTimeMillis();
+                System.out.println("Total execution time: " + (endTime - startTime));
             }
 
             // if the method chosen is the Hashmap
             if (method.equals("3")) { // if entry starts with 2, use TreeMap
+                final double startTime = System.currentTimeMillis();
 
                 String word = line.substring(2);
                 if (myhashmap.lookup(word) == null)  {
@@ -100,6 +107,8 @@ public class SearchEngine {
                         System.out.println("Word found on " + w.getUrl());
                     }
                 }
+                final double endTime = System.currentTimeMillis();
+                System.out.println("Total execution time: " + (endTime - startTime));
             }
         }
     }
