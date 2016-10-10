@@ -28,7 +28,9 @@ public class SearchEngine {
 
         List<Website> list = FileHelper.parseFile(args[0]); //initialize the list
 
-        // initialize the maps for methods 2 and 3
+        // initialize the maps for methods 1, 2, and 3.
+        SimpleIndex mysimpleindex = new SimpleIndex();
+        mysimpleindex.Build(list);
         InvertedIndexHashMap myhashmap = new InvertedIndexHashMap();
         myhashmap.Build(list);
         InvertedIndexTreeMap mytreemap = new InvertedIndexTreeMap();
@@ -54,7 +56,23 @@ public class SearchEngine {
 
             String method = line.substring(0,1);
 
-            // if the method choosen is the Treemap
+            // if the method chosen is the SimpleIndex
+            if (method.equals("1")) { // if entry starts with 1, use SimpleIndex
+
+                String word = line.substring(2);
+                if (mysimpleindex.lookup(word) == null)  {
+                    System.out.println("No website contains the query word.");
+                }
+
+                else {
+                    for (Website w : mysimpleindex.lookup(word)) {
+                        System.out.println("Word found on " + w.getUrl());
+                    }
+                }
+            }
+
+
+            // if the method chosen is the Treemap
             if (method.equals("2")) { // if entry starts with 2, use TreeMap
 
                 String word = line.substring(2);
@@ -69,7 +87,7 @@ public class SearchEngine {
                 }
             }
 
-            // if the method choosen is the Hashmap
+            // if the method chosen is the Hashmap
             if (method.equals("3")) { // if entry starts with 2, use TreeMap
 
                 String word = line.substring(2);

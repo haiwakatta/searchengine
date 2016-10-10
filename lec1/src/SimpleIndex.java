@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -6,24 +7,22 @@ import java.util.List;
  * @author Stefan Wachmann
  */
 public class SimpleIndex implements Index {
-    List<Website> SimpleList;
-    boolean foundWordInList;
+    List<Website> list;
 
     public void Build(List<Website> website){
-        SimpleList = website;
+        list = website;
     }
 
     public List<Website> lookup(String word){
+        List<Website> ListOfWebsites = new ArrayList<Website>();
         // Search for line in the list of websites
-        for (Website w: SimpleList)
+        for (Website w: list)
         {
             if (w.containsWord(word))
             {
-                System.out.println("Word found on " + w.getUrl());
-                foundWordInList = true;
+                ListOfWebsites.add(w);
             }
         }
-        if (!foundWordInList) System.out.println("No website contains the query word.");
-        return null;
+        return ListOfWebsites;
     }
 }
