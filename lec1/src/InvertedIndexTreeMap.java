@@ -11,7 +11,7 @@ import java.util.TreeMap;
 
 public class InvertedIndexTreeMap implements Index {
 
-    private static TreeMap<String, List<Website>> map = new TreeMap<String, List<Website>>();
+    private TreeMap<String, List<Website>> map = new TreeMap<String, List<Website>>();
 
     /**
      * This method takes a list of websites and initialize a Treemap with its inputs
@@ -73,19 +73,19 @@ public class InvertedIndexTreeMap implements Index {
     }
 
     //Test Methods
-    public static boolean isEmpty() {
+    public boolean isEmpty() {
         return map.isEmpty();
     }
 
-    public static boolean containsKey(String key) {
+    public boolean containsKey(String key) {
         return map.containsKey(key);
     }
 
-    public static boolean containsValue(String value) {
+    public boolean containsValue(String value) {
         return map.containsKey(value);
     }
 
-    public static int size() {
+    public int size() {
         return map.size();
     }
 }

@@ -9,33 +9,37 @@ import static org.junit.Assert.*;
  */
 public class IndexTest {
     List<Website> sites = FileHelper.parseFile("test-resources/test-file.txt");
-
+    InvertedIndexTreeMap tree = new InvertedIndexTreeMap();
+    InvertedIndexHashMap hash = new InvertedIndexHashMap();
+    SimpleIndex simple = new SimpleIndex();
 
     public void build() throws Exception {
-        InvertedIndexHashMap.Build(sites);
-        InvertedIndexTreeMap.Build(sites);
-        SimpleIndex.Build(sites);
+        tree.Build(sites);
+        hash.Build(sites);
+        simple.Build(sites);
 
-        assertEquals(false, InvertedIndexHashMap.isEmpty());
-        assertEquals(false, InvertedIndexTreeMap.isEmpty());
-        assertEquals(false, SimpleIndex.isEmpty());
+        assertEquals(false, tree.isEmpty());
+        assertEquals(false, hash.isEmpty());
+        assertEquals(false, simple.isEmpty());
 
-        assertEquals(true, InvertedIndexHashMap.containsKey("word2"));
-        assertEquals(true, InvertedIndexTreeMap.containsKey("word2"));
-        assertEquals(true, SimpleIndex.containsKey("word2"));
+        assertEquals(true, tree.containsKey("word2"));
+        assertEquals(true, hash.containsKey("word2"));
+        assertEquals(true, simple.containsKey("word2"));
 
 
-        assertEquals(true, InvertedIndexHashMap.containsValue("http://page2.com"));
-        assertEquals(true, InvertedIndexTreeMap.containsValue("http://page2.com"));
+        assertEquals(true, tree.containsValue("http://page2.com"));
+        assertEquals(true, hash.containsValue("http://page2.com"));
 
-        assertEquals(4, InvertedIndexHashMap.size());
-        assertEquals(4, InvertedIndexTreeMap.size());
-        assertEquals(4, SimpleIndex.size());
+        assertEquals(4, tree.size());
+        assertEquals(4, hash.size());
+        assertEquals(4, simple.size());
     }
 
 
     public void lookup() throws Exception {
-        assertEquals("http://page2.com", Index.lookup("word3"));
+        assertEquals("http://page2.com", tree.lookup("word3"));
+        assertEquals("http://page2.com", hash.lookup("word3"));
+        assertEquals("http://page2.com", simple.lookup("word3"));
 
     }
 

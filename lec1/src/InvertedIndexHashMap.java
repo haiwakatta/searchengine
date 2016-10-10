@@ -12,7 +12,6 @@ import java.util.HashMap;
  */
 
 public class InvertedIndexHashMap implements Index {
-    private Map<String, String> a = new HashMap<String, String>();
 
     private static HashMap<String, List<Website>> map = new HashMap<String, List<Website>>();
 
@@ -61,19 +60,19 @@ public class InvertedIndexHashMap implements Index {
     }
 
     //Test Methods
-    public static boolean isEmpty() {
+    public boolean isEmpty() {
         return map.isEmpty();
     }
 
-    public static boolean containsKey(String key) {
+    public boolean containsKey(String key) {
         return map.containsKey(key);
     }
 
-    public static boolean containsValue(String value) {
+    public boolean containsValue(String value) {
         return map.containsKey(value);
     }
 
-    public static int size() {
+    public int size() {
         return map.size();
     }
 }

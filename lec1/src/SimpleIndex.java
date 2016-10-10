@@ -7,7 +7,7 @@ import java.util.List;
  * @author Stefan Wachmann
  */
 public class SimpleIndex implements Index {
-    public static List<Website> list;
+    public List<Website> list;
 
     public void Build(List<Website> website){
         list = website;
@@ -27,15 +27,15 @@ public class SimpleIndex implements Index {
     }
 
     //Test Methods
-    public static boolean isEmpty() {
+    public boolean isEmpty() {
         return list.isEmpty();
     }
 
-    public static boolean containsKey(String key) {
+    public boolean containsKey(String key) {
         return list.contains(key);
     }
 
-    public static int size() {
+    public int size() {
         return list.size();
     }
 }
