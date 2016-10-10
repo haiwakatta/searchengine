@@ -83,24 +83,8 @@ public class SearchEngine {
                         System.out.println("Word found on " + w.getUrl());
                     }
                 }
-
             }
-
-
-            /* this part will be moved to the simpleindex implementation
-            // Search for line in the list of websites
-            for (Website w: list)
-            {
-                if (w.containsWord(line))
-                {
-                    System.out.println("Word found on " + w.getUrl());
-                    foundWordInList = true;
-                }
-            }
-            if (!foundWordInList) System.out.println("No website contains the query word.");
-            */
         }
-
     }
 
     /**

@@ -2,6 +2,8 @@ import java.util.List;
 
 /**
  * Created by haoqwu on 04/10/2016.
+ *
+ * @author Stefan Wachmann
  */
 public class SimpleIndex implements Index {
     List<Website> SimpleList;
