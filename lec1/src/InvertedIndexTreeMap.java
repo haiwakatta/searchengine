@@ -11,7 +11,7 @@ import java.util.TreeMap;
 
 public class InvertedIndexTreeMap implements Index {
 
-    private TreeMap<String, List<Website>> map = new TreeMap<String, List<Website>>();
+    private static TreeMap<String, List<Website>> map = new TreeMap<String, List<Website>>();
 
     /**
      * This method takes a list of websites and initialize a Treemap with its inputs
@@ -20,23 +20,22 @@ public class InvertedIndexTreeMap implements Index {
      * only once.
      *
      * @param listofWebsites a preprocessed list of websites with url, title and list of words
-     *
      * @author Lucas Beck
      */
-    public void Build(List<Website> listofWebsites){
+    public void Build(List<Website> listofWebsites) {
 
-        for (Website currentWebsite: listofWebsites ){ // iterate through the list of websites
+        for (Website currentWebsite : listofWebsites) { // iterate through the list of websites
 
-            for (String currentWord: currentWebsite.getWords()) {// iterate through the list of words of each website
+            for (String currentWord : currentWebsite.getWords()) {// iterate through the list of words of each website
 
-                if (!map.containsKey(currentWord)){ // if word has no websites associate with it yet, create a list of websites
+                if (!map.containsKey(currentWord)) { // if word has no websites associate with it yet, create a list of websites
 
-                        List<Website> websitesPerWord = new ArrayList<Website>(); // create list of websites
-                        map.put(currentWord, websitesPerWord);
+                    List<Website> websitesPerWord = new ArrayList<Website>(); // create list of websites
+                    map.put(currentWord, websitesPerWord);
                 }
 
                 if (!isWebsiteContained(map.get(currentWord), currentWebsite)) { // check if the current website is already in the list
-                        map.get(currentWord).add(currentWebsite); // add the currentwebsite to the list for the currentword
+                    map.get(currentWord).add(currentWebsite); // add the currentwebsite to the list for the currentword
 
                 }
             }
@@ -47,32 +46,46 @@ public class InvertedIndexTreeMap implements Index {
      * A static method used to test if a website is already contained
      * in a list of websites.
      *
-     * @param list list of website's
+     * @param list    list of website's
      * @param website {@code Website} the website to be searched
      * @return true if the list contains the website.
-     *
      * @author Lucas Beck
      */
 
-    public static boolean isWebsiteContained(List<Website> list, Website website)
-    {
-        for (Website w: list) {
+    public static boolean isWebsiteContained(List<Website> list, Website website) {
+        for (Website w : list) {
             if (w.equals(website)) return true;
         }
         return false;
     }
 
     /**
-     *  This method provides the list of websites according to the word entered
-     *  as a parameter.
+     * This method provides the list of websites according to the word entered
+     * as a parameter.
      *
      * @param word the word which to search for websites
      * @return a list of websites that contains the word entered.
      */
 
-    public List<Website> lookup(String word){
+    public List<Website> lookup(String word) {
 
         return map.get(word);
     }
-}
 
+    //Test Methods
+    public static boolean isEmpty() {
+        return map.isEmpty();
+    }
+
+    public static boolean containsKey(String key) {
+        return map.containsKey(key);
+    }
+
+    public static boolean containsValue(String value) {
+        return map.containsKey(value);
+    }
+
+    public static int size() {
+        return map.size();
+    }
+}

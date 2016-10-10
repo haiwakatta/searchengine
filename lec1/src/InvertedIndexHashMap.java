@@ -14,7 +14,7 @@ import java.util.HashMap;
 public class InvertedIndexHashMap implements Index {
     private Map<String, String> a = new HashMap<String, String>();
 
-    private HashMap<String, List<Website>> map = new HashMap<String, List<Website>>();
+    private static HashMap<String, List<Website>> map = new HashMap<String, List<Website>>();
 
 
     /**
@@ -58,5 +58,22 @@ public class InvertedIndexHashMap implements Index {
     public List<Website> lookup(String word){
 
         return map.get(word);
+    }
+
+    //Test Methods
+    public static boolean isEmpty() {
+        return map.isEmpty();
+    }
+
+    public static boolean containsKey(String key) {
+        return map.containsKey(key);
+    }
+
+    public static boolean containsValue(String value) {
+        return map.containsKey(value);
+    }
+
+    public static int size() {
+        return map.size();
     }
 }
