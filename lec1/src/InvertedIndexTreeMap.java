@@ -43,14 +43,12 @@ public class InvertedIndexTreeMap implements Index {
         }
     }
 
-
-
     /**
      * A static method used to test if a website is already contained
      * in a list of websites.
      *
      * @param list list of website's
-     * @param {@code Website} the website to be searched
+     * @param website {@code Website} the website to be searched
      * @return true if the list contains the website.
      *
      * @author Lucas Beck
