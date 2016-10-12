@@ -23,7 +23,8 @@ public class SimpleIndex implements Index {
                 ListOfWebsites.add(w);
             }
         }
-        return ListOfWebsites;
+        if (!ListOfWebsites.isEmpty())return ListOfWebsites;
+        else return null;
     }
 
     //Test Methods
