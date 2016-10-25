@@ -1,8 +1,8 @@
-import org.junit.Test;
+package searchengine;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by haoqwu on 10/10/2016.
