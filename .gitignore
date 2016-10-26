@@ -19,7 +19,10 @@
 .idea/sqlDataSources.xml
 .idea/dynamic.xml
 .idea/uiDesigner.xml
-.idea/
+.idea/compiler.xml
+.idea/encodings.xml
+.idea/modules.xml
+
 # Gradle:
 .idea/gradle.xml
 .idea/libraries
