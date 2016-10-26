@@ -13,13 +13,16 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.TreeMap;
 
 /**
  * The main class of our search engine program.
  *
  * @author Martin Aumüller
  * @author Leonid Rusnac
+ * @author Lucas Beck
  */
 @Configuration
 @EnableAutoConfiguration
@@ -73,23 +76,31 @@ public class SearchEngine extends ResourceConfig {
 
         List<String> resultList = new ArrayList<>();
 
+        // test if the query is not empty
         if (query == null) {
             return resultList;
         }
+
+        // initialize index
+        Index index = new InvertedIndex(new HashMap());
+        index.build(list);
 
         String line = query;
 
         System.out.println("Handling request for query word \"" + query + "\"");
 
         // Search for line in the list of websites.
-        for (Website w: list) {
+        if (index.lookup(line) == null){ // test if the word is contain in at least 1 website
+            return resultList;
+        }
+
+        for (Website w: index.lookup(line)) { // lookup and add the url of websites to the result list
             if (w.containsWord(line)) {
                 resultList.add(w.getUrl());
             }
         }
 
-        System.out.println("Found " + resultList.size() + " websites.");
-        return resultList;
+        return resultList; //print it in the website interface
     }
 
 }

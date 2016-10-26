@@ -11,7 +11,7 @@ import java.util.List;
 public class SimpleIndex implements Index {
     public List<Website> list;
 
-    public void Build(List<Website> website){
+    public void build(List<Website> website){
         list = website;
     }
 

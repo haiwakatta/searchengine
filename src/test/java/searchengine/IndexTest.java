@@ -1,6 +1,8 @@
 package searchengine;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.TreeMap;
 
 import static org.junit.Assert.assertEquals;
 
@@ -9,14 +11,14 @@ import static org.junit.Assert.assertEquals;
  */
 public class IndexTest {
     List<Website> sites = FileHelper.parseFile("test-resources/test-file.txt");
-    InvertedIndexTreeMap tree = new InvertedIndexTreeMap();
-    InvertedIndexHashMap hash = new InvertedIndexHashMap();
+    InvertedIndex tree = new InvertedIndex(new TreeMap());
+    InvertedIndex hash = new InvertedIndex(new HashMap());
     SimpleIndex simple = new SimpleIndex();
 
     public void build() throws Exception {
-        tree.Build(sites);
-        hash.Build(sites);
-        simple.Build(sites);
+        tree.build(sites);
+        hash.build(sites);
+        simple.build(sites);
 
         assertEquals(false, tree.isEmpty());
         assertEquals(false, hash.isEmpty());
