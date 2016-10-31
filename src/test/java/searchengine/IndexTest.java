@@ -1,48 +1,72 @@
 package searchengine;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import sun.jvm.hotspot.jdi.ArrayReferenceImpl;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.TreeMap;
-
-import static org.junit.Assert.assertEquals;
 
 /**
- * Created by haoqwu on 10/10/2016.
+ * Created by Leonid on 25/10/16.
  */
 public class IndexTest {
-    List<Website> sites = FileHelper.parseFile("test-resources/test-file.txt");
-    InvertedIndex tree = new InvertedIndex(new TreeMap());
-    InvertedIndex hash = new InvertedIndex(new HashMap());
-    SimpleIndex simple = new SimpleIndex();
 
-    public void build() throws Exception {
-        tree.build(sites);
-        hash.build(sites);
-        simple.build(sites);
+    private Index simpleIndex;
+    private Index invertedIndex;
 
-        assertEquals(false, tree.isEmpty());
-        assertEquals(false, hash.isEmpty());
-        assertEquals(false, simple.isEmpty());
+    @Before
+    public void setUp() {
+        simpleIndex = new SimpleIndex();
+        invertedIndex = new InvertedIndex(new HashMap<>());
 
-        assertEquals(true, tree.containsKey("word2"));
-        assertEquals(true, hash.containsKey("word2"));
-        assertEquals(true, simple.containsKey("word2"));
+        List<String> words1 = Arrays.asList("This", "is", "a", "first", "website", "just", "a", "test");
+        List<String> words2 = Arrays.asList("This", "is", "a", "second", "website");
 
+        Website website1 = new Website("http://example.com/first", "first", words1);
+        Website website2 = new Website("http://example.com/seconbd", "second", words2);
 
-        assertEquals(true, tree.containsValue("http://page2.com"));
-        assertEquals(true, hash.containsValue("http://page2.com"));
-
-        assertEquals(4, tree.size());
-        assertEquals(4, hash.size());
-        assertEquals(4, simple.size());
+        simpleIndex.build(Arrays.asList(website1, website2));
+        invertedIndex.build(Arrays.asList(website1, website2));
     }
 
+    @After
+    public void tearDown() {
+        simpleIndex = null;
+        invertedIndex = null;
+    }
 
-    public void lookup() throws Exception {
-        assertEquals("http://page2.com", tree.lookup("word3"));
-        assertEquals("http://page2.com", hash.lookup("word3"));
-        assertEquals("http://page2.com", simple.lookup("word3"));
+    @Test
+    public void buildTestSimpleIndex(){
+        Assert.assertEquals("SimpleIndex{sites=[Website{url='http://example.com/first', title='first', words=[This, is, a, first, website, just, a, test]}, Website{url='http://example.com/seconbd', title='second', words=[This, is, a, second, website]}]}", simpleIndex.toString());
 
+    }
+
+    @Test
+    public void simpleIndexLookupTest() {
+        lookupTest(simpleIndex);
+    }
+
+    @Test
+    public void invetedIndexLookupTest() {
+        //uncomment after implementing the inverted index
+        //lookupTest(invertedIndex);
+    }
+
+    private void lookupTest(Index index) {
+        List<Website> result = index.lookup("This");
+        Assert.assertEquals(2, result.size());
+
+        result = index.lookup("just");
+        Assert.assertEquals(1, result.size());
+
+        Assert.assertEquals("http://example.com/first", result.get(0).getUrl());
+
+        result = index.lookup("itu");
+        Assert.assertNotEquals(null, result);
+        Assert.assertEquals(0, result.size());
     }
 
 }
