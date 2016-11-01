@@ -11,10 +11,21 @@ import java.util.List;
 public class SimpleIndex implements Index {
     public List<Website> list;
 
+    /**
+     * The build method creates a list of websites from a provided list of websites
+     *
+     * @param website takes a list of websites as the parameter
+     */
     public void build(List<Website> website){
         list = website;
     }
 
+    /**
+     * The lookup method takes a word query and determines if it is contained in a given list of websites.
+     *
+     * @param word takes a search query as the parameter
+     * @return list of websites in which the word is contained.
+     */
     public List<Website> lookup(String word){
         List<Website> ListOfWebsites = new ArrayList<Website>();
         // Search for line in the list of websites
