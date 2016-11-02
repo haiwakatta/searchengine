@@ -29,6 +29,7 @@ import java.util.TreeMap;
 @Path("/")
 public class SearchEngine extends ResourceConfig {
     private static List<Website> list;
+    private static InvertedIndex index;
 
     public SearchEngine() {
         packages("searchengine");
@@ -52,6 +53,9 @@ public class SearchEngine extends ResourceConfig {
 
         // Build the list of websites using the FileHelper.
         list = FileHelper.parseFile(args[0]);
+
+        index = new InvertedIndex(new HashMap());
+        index.build(list);
 
         // Later: Build the index from this list.
         SpringApplication.run(SearchEngine.class, args);
@@ -80,10 +84,6 @@ public class SearchEngine extends ResourceConfig {
         if (query == null) {
             return resultList;
         }
-
-        // initialize index
-        Index index = new InvertedIndex(new HashMap());
-        index.build(list);
 
         String line = query;
 
