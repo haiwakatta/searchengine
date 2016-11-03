@@ -55,7 +55,7 @@ public class FileHelper {
             Scanner sc = new Scanner(new File(arg), "UTF-8");
             while (sc.hasNext()) {
 
-                String line = sc.next().trim();
+                String line = sc.nextLine().trim();
 
                 if (line.startsWith("*PAGE:")) {
                     // new entry starts
