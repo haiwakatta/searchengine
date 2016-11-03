@@ -8,6 +8,7 @@ import java.util.List;
  * to check whether a word is contained one a website.
  *
  * @author Martin Aumüller
+ * @author Lucas Beck
  */
 public class Website {
 
@@ -65,8 +66,6 @@ public class Website {
      * Return the website's list of words
      *
      * @return the website's list of words
-     *
-     * @author Lucas Beck
      */
     public List<String> getWords() {
 
@@ -91,4 +90,17 @@ public class Website {
 
     }
 
+    /**
+     * This method returns a String representation of the Website
+     *
+     * @return Webstie string representation
+     */
+    @Override
+    public String toString() {
+        return "Website{" +
+                "url='" + url + '\'' +
+                ", title='" + title + '\'' +
+                ", words=" + words +
+                '}';
+    }
 }

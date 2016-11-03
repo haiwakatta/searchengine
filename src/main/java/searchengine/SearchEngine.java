@@ -89,11 +89,6 @@ public class SearchEngine extends ResourceConfig {
 
         System.out.println("Handling request for query word \"" + query + "\"");
 
-        // Search for line in the list of websites.
-        if (index.lookup(line) == null){ // test if the word is contain in at least 1 website
-            return resultList;
-        }
-
         for (Website w: index.lookup(line)) { // lookup and add the url of websites to the result list
             if (w.containsWord(line)) {
                 resultList.add(w.getUrl());

@@ -14,7 +14,8 @@ public class InvertedIndex implements Index {
     private Map<String, List<Website>> map = null;
 
     /**
-     * Constructor takes the type of map to be created
+     * The constructor of the InvertedIndex object.
+     * takes the type of map to be created
      */
     public InvertedIndex(Map map) {
         this.map = map;
@@ -27,8 +28,6 @@ public class InvertedIndex implements Index {
      * only once.
      *
      * @param listofWebsites a preprocessed list of websites with url, title and list of words
-     *
-     * @author Lucas Beck
      */
     public void build(List<Website> listofWebsites){
         for (Website currentWebsite: listofWebsites ){ // iterate through the list of websites
@@ -60,6 +59,10 @@ public class InvertedIndex implements Index {
      */
     public List<Website> lookup(String word){
 
+        if (map.get(word) == null){ // returns an empty list and not null in case it does not find any websites
+            List<Website> emptyList = new ArrayList<Website>();
+            return emptyList;
+        }
         return map.get(word);
     }
 
@@ -70,11 +73,9 @@ public class InvertedIndex implements Index {
      * @param list    list of website's
      * @param website {@code Website} the website to be searched
      * @return true if the list contains the website.
-     *
-     * @author Lucas Beck
      */
 
-    public static boolean isWebsiteContained(List<Website> list, Website website) {
+    private static boolean isWebsiteContained(List<Website> list, Website website) {
         for (Website w : list) {
             if (w.equals(website)) return true;
         }
@@ -85,8 +86,6 @@ public class InvertedIndex implements Index {
      * Method used to check if the map is empty
      *
      * @return true if empty
-     *
-     * @author Lucas Beck
      */
     public boolean isEmpty() {return map.isEmpty();}
 
@@ -95,8 +94,6 @@ public class InvertedIndex implements Index {
      *
      * @param key the key to be looked up
      * @return true if contains the key
-     *
-     * @author Lucas Beck
      */
 
     public boolean containsKey(String key) {
@@ -108,8 +105,6 @@ public class InvertedIndex implements Index {
      *
      * @param value the value to be looked up
      * @return true if contains the value
-     *
-     * @author Lucas Beck
      */
 
     public boolean containsValue(String value) {
@@ -120,11 +115,21 @@ public class InvertedIndex implements Index {
      * This method checks the size of the map
      *
      * @return the size of the map
-     *
-     * @author Lucas beck
      */
 
     public int size() {
         return map.size();
+    }
+
+    /**
+     * This method returns a String representation of the Index
+     *
+     * @return InvertedIndex string representation
+     */
+    @Override
+    public String toString() {
+        return "InvertedIndex{" +
+                "map=" + map +
+                '}';
     }
 }

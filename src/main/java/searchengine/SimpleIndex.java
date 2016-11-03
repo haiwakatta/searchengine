@@ -7,6 +7,7 @@ import java.util.List;
  * Created by haoqwu on 04/10/2016.
  *
  * @author Stefan Wachmann
+ * @author Lucas Beck
  */
 public class SimpleIndex implements Index {
     public List<Website> list;
@@ -36,8 +37,19 @@ public class SimpleIndex implements Index {
                 ListOfWebsites.add(w);
             }
         }
-        if (!ListOfWebsites.isEmpty())return ListOfWebsites;
-        else return null;
+        return ListOfWebsites;
+    }
+
+    /**
+     * This method returns a String representation of the Index
+     *
+     * @return SimpleIndex string representation
+     */
+    @Override
+    public String toString() {
+        return "SimpleIndex{" +
+                "list=" + list +
+                '}';
     }
 
     //Test Methods
