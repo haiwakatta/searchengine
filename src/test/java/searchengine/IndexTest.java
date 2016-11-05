@@ -78,7 +78,7 @@ public class IndexTest {
         lookupTest(invertedIndexTree);
     }
 
-    // Test for whether the invertedIndex creates several lists of websites when the same word is found several times in a website.
+    // Create test for whether the invertedIndex creates several lists of websites when the same word is found several times in a website.
 
     // actual code for all the lookups
     private void lookupTest(Index index) {

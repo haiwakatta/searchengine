@@ -40,7 +40,7 @@ public class FileHelperTest {
         parseFileTest(sites_wrong);
     }
 
-
+// Actual code for testing the parsing of the files.
     private void parseFileTest(List<Website> fileInput) {
         assertEquals(2,fileInput.size());
         assertEquals("title1",fileInput.get(0).getTitle());
