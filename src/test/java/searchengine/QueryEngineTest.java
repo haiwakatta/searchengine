@@ -23,4 +23,17 @@ public class QueryEngineTest {
     public void doThisTest() {
 
     }
+
+
+    // Test for
+        // duplicates
+        // empty string or a single space " "
+        // long strings
+        // AND, OR, and " " separators
+        // handling of the query "null"? (probably not necessary"
+        //
+        //
+    // Should we count how many times the query is found on the website?
+    // Are we counting how many websites it's found on?
+        //
 }
