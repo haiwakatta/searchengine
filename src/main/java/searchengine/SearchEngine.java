@@ -79,6 +79,7 @@ public class SearchEngine extends ResourceConfig {
         response.setHeader("Access-Control-Allow-Origin", "*");
 
         List<String> resultList = new ArrayList<>();
+        QueryEngine Engine = new QueryEngine(index);
 
         // test if the query is not empty
         if (query == null) {
@@ -89,10 +90,9 @@ public class SearchEngine extends ResourceConfig {
 
         System.out.println("Handling request for query word \"" + query + "\"");
 
-        for (Website w: index.lookup(line)) { // lookup and add the url of websites to the result list
-            if (w.containsWord(line)) {
+
+        for (Website w: Engine.getWebsites(query)) { // lookup and add the url of websites to the result list
                 resultList.add(w.getUrl());
-            }
         }
 
         return resultList; //print it in the website interface
