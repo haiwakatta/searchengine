@@ -22,10 +22,10 @@ public class QueryEngine {
     }
 
 
-    private InvertedIndex index;
+    private Index index;
     private List<Website> listWebsite = new ArrayList<Website>();
 
-    public QueryEngine (InvertedIndex Index) {
+    public QueryEngine (Index Index) {
         this.index = Index;
     }
 
