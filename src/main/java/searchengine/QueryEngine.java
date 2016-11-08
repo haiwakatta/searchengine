@@ -1,75 +1,53 @@
 package searchengine;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by user on 01/11/2016.
  */
 public class QueryEngine {
 
-    //Private class that deduplicates websites a list
-    private <T> Set<T> returnDuplicates(Collection<T> list) {
-
-        Set<T> duplicates = new HashSet<T>();
-        Set<T> uniques = new HashSet<T>();
-
-        for(T t : list) {
-            if(!uniques.add(t)) {
-                duplicates.add(t);
-            }
-        }
-        return duplicates;
-    }
-
-
+    private String query;
     private Index index;
-    private List<Website> listWebsite = new ArrayList<Website>();
+    private List<Website> listWebsite = null;
 
-    public QueryEngine (Index Index) {
-        this.index = Index;
+    public QueryEngine(Index index) {
+        this.index = index;
     }
 
+    public List<Website> getWebsites(String query) {
+        List<String> queries = new ArrayList<String>();
+        List<Website> result = new ArrayList<>();
 
-
-    public List<Website> getWebsites(String query){
-        List<String> queries = new ArrayList<>();
-
-         /*
-        if (query.contains(" ")) {
-            queries = Arrays.asList(query.split(" "));
-        }
+        queries = Arrays.asList(query.split(" OR "));
 
         for (String q : queries) {
-
-        }
-        */
-
-        if (query.contains(" ")){
-            queries = Arrays.asList(query.split(" OR "));}
-        else queries.add(query);
-
-        for (int i = 0; i < queries.size(); i++) {
-            //Check if query is AND operator
-            if (queries.get(i).contains(" AND ") || queries.get(i).contains(" ")) {
-                //Create a new list containing each term in an AND query
-                String[] andQueries = queries.get(i).split(" ");
-                //Initialize and resets new website container
-                List<Website> andList = new ArrayList<Website>();
-                //Loops through terms in an AND query and adds them to container
-                for (int j = 0; j < andQueries.length; j++) {
-                    andList.addAll(index.lookup(andQueries[j]));
+            for (Website website : subQuery(q)) {
+                if (!result.contains(website)) {
+                    result.add(website);
                 }
-                //add only duplicate items to final list
-                listWebsite.addAll(returnDuplicates(andList));
             }
-            System.out.println(queries.get(i));
-            listWebsite.addAll(index.lookup(queries.get(i)));
         }
-        return listWebsite;
+        return result;
     }
 
+    private List<Website> subQuery (String query){
+        List<String> subQueries = new ArrayList<String>();
+        List<Website> subResult = new ArrayList<>();
 
+        subQueries = Arrays.asList(query.split(" "));
+
+        for(String subQ : subQueries){
+            if (subResult.isEmpty()) {
+                subResult = index.lookup(subQ);
+            }
+            else {
+                subResult.retainAll(index.lookup(subQ));
+            }
+        }
+
+        return subResult;
+    }
 }
-
-
-

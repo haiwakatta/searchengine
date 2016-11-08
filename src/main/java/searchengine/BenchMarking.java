@@ -44,8 +44,8 @@ public class BenchMarking {
 
     // generic initialization
     public static void initializeIndex(Index index, String type) {
-        int numOfIterations = 100;
-        int numOfWarmup = 100;
+        int numOfIterations = 5;
+        int numOfWarmup = 5;
 
         // warm-up
         for (int i = 0; i < numOfWarmup; i ++){

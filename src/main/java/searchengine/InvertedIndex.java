@@ -30,6 +30,7 @@ public class InvertedIndex implements Index {
      * @param listofWebsites a preprocessed list of websites with url, title and list of words
      */
     public void build(List<Website> listofWebsites){
+        map.clear();
         for (Website currentWebsite: listofWebsites ){ // iterate through the list of websites
 
             for (String currentWord: currentWebsite.getWords()) {// iterate through the list of words of each website

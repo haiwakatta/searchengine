@@ -58,11 +58,11 @@ public class QueryEngineTest {
         List<Website> result = query.getWebsites("query");
         Assert.assertEquals("http://example.com/first",result.get(0).getUrl());
         result = query.getWebsites("first OR second");
-        Assert.assertEquals(2, result.size());
+        Assert.assertEquals("first",2, result.size());
         result = query.getWebsites("website for");
-        Assert.assertEquals(2, result.size());
+        Assert.assertEquals("second", 3, result.size());
         result = query.getWebsites("website second OR extra");
-        Assert.assertEquals(2, result.size());
+        Assert.assertEquals("third", 2, result.size());
         result = query.getWebsites("extra words");
         Assert.assertEquals(1, result.size());
         Assert.assertEquals("http://example.com/third", result.get(0).getUrl());
