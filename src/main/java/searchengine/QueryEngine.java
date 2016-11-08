@@ -9,16 +9,14 @@ import java.util.List;
  */
 public class QueryEngine {
 
-    private String query;
     private Index index;
-    private List<Website> listWebsite = null;
 
     public QueryEngine(Index index) {
         this.index = index;
     }
 
     public List<Website> getWebsites(String query) {
-        List<String> queries = new ArrayList<String>();
+        List<String> queries;
         List<Website> result = new ArrayList<>();
 
         queries = Arrays.asList(query.split(" OR "));
@@ -34,7 +32,7 @@ public class QueryEngine {
     }
 
     private List<Website> subQuery (String query){
-        List<String> subQueries = new ArrayList<String>();
+        List<String> subQueries;
         List<Website> subResult = new ArrayList<>();
 
         subQueries = Arrays.asList(query.split(" "));
