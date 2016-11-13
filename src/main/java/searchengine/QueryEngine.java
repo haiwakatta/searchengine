@@ -1,16 +1,15 @@
 package searchengine;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * This class takes creates the object QueryEngine, which is responsible
  * for handling complex queries
  */
-public class QueryEngine {
+public class QueryEngine implements Query {
 
     private Index index;
+    private Map scoredWebsites;
 
     /**
      *  The constructor of the QueryEngine. Takes an index as parameter
@@ -19,6 +18,7 @@ public class QueryEngine {
      */
     public QueryEngine(Index index) {
         this.index = index;
+        scoredWebsites = new HashMap();
     }
 
     /**
