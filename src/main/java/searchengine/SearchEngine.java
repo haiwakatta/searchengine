@@ -30,6 +30,7 @@ import java.util.TreeMap;
 public class SearchEngine extends ResourceConfig {
     private static List<Website> list;
     private static InvertedIndex index;
+    private static QueryEngine engine;
 
     public SearchEngine() {
         packages("searchengine");
@@ -56,6 +57,7 @@ public class SearchEngine extends ResourceConfig {
 
         index = new InvertedIndex(new HashMap());
         index.build(list);
+        engine = new QueryEngine(index);
 
         // Later: Build the index from this list.
         SpringApplication.run(SearchEngine.class, args);
@@ -79,7 +81,6 @@ public class SearchEngine extends ResourceConfig {
         response.setHeader("Access-Control-Allow-Origin", "*");
 
         List<String> resultList = new ArrayList<>();
-        QueryEngine Engine = new QueryEngine(index);
 
         // test if the query is not empty
         if (query == null) {
@@ -91,7 +92,7 @@ public class SearchEngine extends ResourceConfig {
         System.out.println("Handling request for query word \"" + query + "\"");
 
 
-        for (Website w: Engine.getWebsites(query)) { // lookup and add the url of websites to the result list
+        for (Website w: engine.getWebsites(line)) { // lookup and add the url of websites to the result list
                 resultList.add(w.getUrl());
         }
 

@@ -78,6 +78,7 @@ public class Website {
      * @param o any object
      * @return true if equal
      */
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -88,6 +89,14 @@ public class Website {
         if (title != null ? !title.equals(website.title) : website.title != null) return false;
         return words != null ? words.equals(website.words) : website.words == null;
 
+    }
+
+    @Override
+    public int hashCode() {
+        int result = url != null ? url.hashCode() : 0;
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (words != null ? words.hashCode() : 0);
+        return result;
     }
 
     /**

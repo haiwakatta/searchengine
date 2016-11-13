@@ -93,6 +93,7 @@ public class IndexTest {
         result = index.lookup("itu");
         Assert.assertNotEquals(null, result);
         Assert.assertEquals(0, result.size());
+
     }
 
 }

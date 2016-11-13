@@ -34,50 +34,35 @@ public class QueryEngineTest {
         index.build(Arrays.asList(website1, website2, website3));
         query = new QueryEngine(index);
 
-        /*longQuery1 = "Where are the absolute best restaurants in Copenhagen";
-        longQuery2 = "various of the extremely largescale states are selfgoverning";
-        separatorsQuery1 = "commonly AND country OR happiest zealand OR  ";
-        separatorsQuery2 = "ituniversitetet OR and AND or OR https";
-        emptyQuery = "";*/
 
     }
     @After
     public void tearDown() {
         index = null;
         query = null;
-        /*longQuery1 = null;
-        longQuery2 = null;
-        separatorsQuery1 = null;
-        separatorsQuery2 = null;
-        emptyQuery = null;*/
 
     }
 
     @Test
     public void queryTest() {
         List<Website> result = query.getWebsites("query");
-        Assert.assertEquals("http://example.com/first",result.get(0).getUrl());
+        Assert.assertEquals("simpe query", "http://example.com/first",result.get(0).getUrl());
+
         result = query.getWebsites("first OR second");
-        Assert.assertEquals("first",2, result.size());
+        Assert.assertEquals("OR simple query",2, result.size());
+
         result = query.getWebsites("website for");
-        Assert.assertEquals("second", 3, result.size());
+        Assert.assertEquals("AND simple query", 3, result.size());
+
         result = query.getWebsites("website second OR extra");
-        Assert.assertEquals("third", 2, result.size());
-        result = query.getWebsites("extra words");
-        Assert.assertEquals(1, result.size());
-        Assert.assertEquals("http://example.com/third", result.get(0).getUrl());
+        Assert.assertEquals("Complex query size", 2, result.size());
+        Assert.assertEquals("Complex query first website", "http://example.com/second", result.get(0).getUrl() );
+
+        result = query.getWebsites("query");
+        Assert.assertEquals("simpe query second time", "http://example.com/first",result.get(0).getUrl());
+
+        result = query.getWebsites("website for");
+        Assert.assertEquals("AND simple query second time", 3, result.size());
     }
 
-
-    // Test for
-        // duplicates
-        // empty string or a single space " "
-        // long strings
-        // AND, OR, and " " separators
-        // handling of the query "null"? (probably not necessary)
-        //
-        //
-    // Should we count how many times the query is found on the website?
-    // Are we counting how many websites it's found on? --> should be handled by the InvertedIndex Class - but is it?
-        //
 }

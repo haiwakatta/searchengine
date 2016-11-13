@@ -63,10 +63,27 @@ public class QueryEngine {
                 subResult = index.lookup(subQ);
             }
             else {
-                subResult.retainAll(index.lookup(subQ));
+                subResult = intersectionList(subResult, index.lookup(subQ));
             }
         }
-
         return subResult;
+    }
+
+    /**
+     * This method takes two lists of websites and return a list containing only the elements that are cointained
+     * within both lists
+     * @param list1 a list of websites
+     * @param list2 a list of websites
+     * @return a list of websites containing only the websites that are in the two lists
+     */
+    private List<Website> intersectionList (List<Website> list1, List<Website> list2){
+        List<Website> result = new ArrayList<>();
+
+        for (Website w: list1){
+            if(list2.contains(w)){
+                result.add(w);
+            }
+        }
+        return result;
     }
 }

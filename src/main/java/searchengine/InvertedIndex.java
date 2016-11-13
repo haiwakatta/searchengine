@@ -4,14 +4,14 @@ import java.util.*;
 
 
 /**
- *  This classe implements the interface index in a inverted manner using a map
+ *  This class implements the interface index in a inverted manner using a map
  *
  *  @author Lucas Beck
  */
 
 public class InvertedIndex implements Index {
 
-    private Map<String, List<Website>> map = null;
+    private Map<String, List<Website>> map;
 
     /**
      * The constructor of the InvertedIndex object.
