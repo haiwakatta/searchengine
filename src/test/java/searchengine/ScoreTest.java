@@ -39,8 +39,10 @@ public class ScoreTest {
 
     @Test
     public void testScoreTf () {
-        int score = scoreTf.getScore("website", website1, index);
-        Assert.assertEquals("Word website", 2, score);
+        float score = scoreTf.getScore("website", website1, index);
+        Assert.assertEquals("Word website", 2, score, 0.0001);
+        score = scoreTf.getScore("banana", website1, index);
+        Assert.assertEquals("Word does not exist", 0, score, 0.0001);
     }
 
 }
