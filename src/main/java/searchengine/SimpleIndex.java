@@ -10,7 +10,8 @@ import java.util.List;
  * @author Lucas Beck
  */
 public class SimpleIndex implements Index {
-    public List<Website> list;
+    private List<Website> list;
+    private int numWebsites;
 
     /**
      * The build method creates a list of websites from a provided list of websites
@@ -37,7 +38,13 @@ public class SimpleIndex implements Index {
                 ListOfWebsites.add(w);
             }
         }
+        numWebsites = ListOfWebsites.size();
         return ListOfWebsites;
+    }
+
+    @Override
+    public int numWebsites() {
+        return numWebsites;
     }
 
     /**
@@ -52,16 +59,5 @@ public class SimpleIndex implements Index {
                 '}';
     }
 
-    //Test Methods
-    public boolean isEmpty() {
-        return list.isEmpty();
-    }
 
-    public boolean containsKey(String key) {
-        return list.contains(key);
-    }
-
-    public int size() {
-        return list.size();
-    }
 }

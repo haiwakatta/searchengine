@@ -15,9 +15,6 @@ public interface Index {
      * This method takes and preprocessed a list of website objects and create an index
      *
      * @param websites - the list of websites to be preprocessed.
-     *
-     * @author Stefan Wachmann
-     * @author Lucas Beck
      */
     void build(List<Website> websites);
 
@@ -27,8 +24,12 @@ public interface Index {
      * @param query - the query string to search for     *
      * @return the list of processed websites.
      *
-     * @author Stefan Wachmann
-     * @author Lucas Beck
      */
     List<Website> lookup(String query);
+
+    /**
+     * This method returns the total number of websites within the Index
+     * @return the number of websites
+     */
+    int numWebsites();
 }

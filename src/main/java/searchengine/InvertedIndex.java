@@ -12,12 +12,14 @@ import java.util.*;
 public class InvertedIndex implements Index {
 
     private Map<String, List<Website>> map;
+    private int numWebsites;
 
     /**
      * The constructor of the InvertedIndex object.
      * takes the type of map to be created
      */
     public InvertedIndex(Map map) {
+        this.numWebsites = 0;
         this.map = map;
     }
 
@@ -31,6 +33,7 @@ public class InvertedIndex implements Index {
      */
     public void build(List<Website> listofWebsites){
         map.clear();
+        numWebsites = listofWebsites.size();
         for (Website currentWebsite: listofWebsites ){ // iterate through the list of websites
 
             for (String currentWord: currentWebsite.getWords()) {// iterate through the list of words of each website
@@ -61,10 +64,14 @@ public class InvertedIndex implements Index {
     public List<Website> lookup(String word){
 
         if (map.get(word) == null){ // returns an empty list and not null in case it does not find any websites
-            List<Website> emptyList = new ArrayList<Website>();
-            return emptyList;
+            return new ArrayList<Website>();
         }
         return map.get(word);
+    }
+
+    @Override
+    public int numWebsites() {
+        return numWebsites;
     }
 
     /**
