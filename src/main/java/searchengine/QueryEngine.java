@@ -31,7 +31,7 @@ public class QueryEngine {
      */
     public List<Website> getWebsites(String query) {
         List<String> queries;
-        Map<Website, Float> result = new HashMap<>();
+        Map<Website, Double> result = new HashMap<>();
 
         queries = Arrays.asList(query.split(" OR ")); // splits queries that use OR
 
@@ -61,10 +61,10 @@ public class QueryEngine {
      * @param query the query to be searched
      * @return Map containing websites and its scores.
      */
-    private Map<Website, Float>  subQuery (String query){
+    private Map<Website, Double>  subQuery (String query){
         List<String> subQueries;
-        Map<Website, Float> scoredWebsites = new HashMap();
-        Map<Website, Float> tempMap = new HashMap();
+        Map<Website, Double> scoredWebsites = new HashMap();
+        Map<Website, Double> tempMap = new HashMap();
         Score score = new ScoreTf();
 
         subQueries = Arrays.asList(query.split(" ")); // splits query
@@ -95,8 +95,8 @@ public class QueryEngine {
      * @param map2 Second map to be merged
      * @return a merged map with websites only common to both and summed scores
      */
-    private static Map<Website, Float> intersectionMap (Map<Website, Float> map1, Map<Website, Float> map2){
-        Map<Website, Float> result = new HashMap<>();
+    private static Map<Website, Double> intersectionMap (Map<Website, Double> map1, Map<Website, Double> map2){
+        Map<Website, Double> result = new HashMap<>();
 
         for (Website w: map1.keySet()){ // iterate through first map
             if(map2.containsKey(w)){ // if there is an overlapping result

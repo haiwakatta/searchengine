@@ -7,8 +7,8 @@ package searchengine;
 public class ScoreTf implements Score {
 
     @Override
-    public float getScore(String word, Website site, Index index) {
-        float result = 0;
+    public double getScore(String word, Website site, Index index) {
+        double result = 0;
         for (String w : site.getWords()){ // iterate through all words in the website
             if (w.equals(word)) { // if encounter the word, increase score
                 result ++;

@@ -12,7 +12,7 @@ public interface Score {
      * @param word word to be assigned a score
      * @param site a website the word is contained
      * @param index the index of the database of websites
-     * @return a float point number representing the score of the word
+     * @return a double representing the score of the word
      */
-    float getScore (String word, Website site, Index index);
+    double getScore (String word, Website site, Index index);
 }

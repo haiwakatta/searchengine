@@ -6,9 +6,9 @@ package searchengine;
  */
 public class ScoreIdf implements Score {
     @Override
-    public float getScore(String word, Website site, Index index) {
-        float totalNum = 0;
-        float siteNum = 0;
+    public double getScore(String word, Website site, Index index) {
+        double totalNum = 0;
+        double siteNum = 0;
 
         siteNum = index.lookup(word).size(); // total number of websites that the word occur
         totalNum = index.numWebsites(); // total number of websites in the data base
@@ -16,15 +16,15 @@ public class ScoreIdf implements Score {
         if (siteNum == 0){ // if the word is not cointained at all, avoid division by 0
             return 0;
         }
-        return logBase2((totalNum/siteNum));
+        return logBase2(totalNum/siteNum);
     }
 
     /**
-     * This function returns the log base 2 given a float
-     * @param x float number
-     * @return the log base 2 in a float number
+     * This function returns the log base 2 given a double
+     * @param x double number
+     * @return the log base 2 in a double number
      */
-    public static float logBase2 (float x){
-        return (float) (Math.log(x)/Math.log(2));
+    public static double logBase2 (double x){
+        return (Math.log(x)/Math.log(2));
     }
 }
