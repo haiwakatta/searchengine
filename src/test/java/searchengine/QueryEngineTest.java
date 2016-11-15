@@ -82,7 +82,7 @@ public class QueryEngineTest {
     public void queryOrderTest(){
         result = orderedQuery.getWebsites("testing");
         Assert.assertEquals("simple query", "http://example.com/third", result.get(0).getUrl());
-
+        
     }
 
 }
