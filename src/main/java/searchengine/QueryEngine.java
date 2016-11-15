@@ -10,14 +10,16 @@ import java.util.stream.Collectors;
 public class QueryEngine {
 
     private Index index;
+    private Score score;
 
     /**
      *  The constructor of the QueryEngine. Takes an index as parameter
      *  in order to perform the searches in individual words
      * @param index the index as a Map, with keys as words and values as websites
      */
-    public QueryEngine (Index index) {
+    public QueryEngine (Index index, Score score) {
         this.index = index;
+        this.score = score;
     }
 
     /**
@@ -65,7 +67,6 @@ public class QueryEngine {
         List<String> subQueries;
         Map<Website, Double> scoredWebsites = new HashMap();
         Map<Website, Double> tempMap = new HashMap();
-        Score score = new ScoreTf();
 
         subQueries = Arrays.asList(query.split(" ")); // splits query
 

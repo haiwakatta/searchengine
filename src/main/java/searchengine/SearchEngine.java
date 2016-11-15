@@ -15,7 +15,6 @@ import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.TreeMap;
 
 /**
  * The main class of our search engine program.
@@ -31,6 +30,7 @@ public class SearchEngine extends ResourceConfig {
     private static List<Website> list;
     private static InvertedIndex index;
     private static QueryEngine engine;
+    private static Score score;
 
     public SearchEngine() {
         packages("searchengine");
@@ -57,7 +57,8 @@ public class SearchEngine extends ResourceConfig {
 
         index = new InvertedIndex(new HashMap());
         index.build(list);
-        engine = new QueryEngine(index);
+        score = new TFScore();
+        engine = new QueryEngine(index, score);
 
         // Later: Build the index from this list.
         SpringApplication.run(SearchEngine.class, args);

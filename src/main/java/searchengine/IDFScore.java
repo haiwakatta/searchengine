@@ -4,7 +4,7 @@ package searchengine;
  * This class implements the score. It calculates the score according to
  * the total number of websites in the Index (database) relative to the number of websites a word occur
  */
-public class ScoreIdf implements Score {
+public class IDFScore implements Score {
     @Override
     public double getScore(String word, Website site, Index index) {
         double totalNum = 0;

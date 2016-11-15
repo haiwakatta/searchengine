@@ -4,7 +4,7 @@ package searchengine;
  * This class implements the score. It calculates the score according to
  * the number of times a word occur in a particular website.
  */
-public class ScoreTf implements Score {
+public class TFScore implements Score {
 
     @Override
     public double getScore(String word, Website site, Index index) {
