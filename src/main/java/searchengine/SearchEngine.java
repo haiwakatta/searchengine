@@ -57,7 +57,7 @@ public class SearchEngine extends ResourceConfig {
 
         index = new InvertedIndex(new HashMap());
         index.build(list);
-        score = new TFScore();
+        score = new TFIDFScore();
         engine = new QueryEngine(index, score);
 
         // Later: Build the index from this list.
@@ -88,12 +88,10 @@ public class SearchEngine extends ResourceConfig {
             return resultList;
         }
 
-        String line = query;
 
         System.out.println("Handling request for query word \"" + query + "\"");
 
-
-        for (Website w: engine.getWebsites(line)) { // lookup and add the url of websites to the result list
+        for (Website w: engine.getWebsites(query)) { // lookup and add the url of websites to the result list
                 resultList.add(w.getUrl());
         }
 

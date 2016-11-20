@@ -21,15 +21,17 @@ public class QueryEngineTest {
     private QueryEngine naiveQuery;
     private QueryEngine orderedQuery;
     private Score simpleScore;
-    private Score tfScore;
+    private Score testScore;
     private List<Website> result;
 
     @Before
     public void setUp() {
         index = new InvertedIndex(new HashMap());
         List<String> words1 = Arrays.asList("first","website", "for", "testing", "the", "query");
-        List<String> words2 = Arrays.asList("second", "website", "for", "testing", "with", "some", "different", "words");
-        List<String> words3 = Arrays.asList("third", "website", "for", "testing", "with", "extra", "words", "for", "testing", "more");
+        List<String> words2 = Arrays.asList("second", "website", "for", "testing", "with", "some", "different", "words",
+                "like", "with");
+        List<String> words3 = Arrays.asList("third", "website", "for", "testing", "using", "some", "other", "words", "for",
+                "testing", "more");
 
         Website website1 = new Website("http://example.com/first", "first", words1);
         Website website2 = new Website("http://example.com/second", "second", words2);
@@ -39,8 +41,8 @@ public class QueryEngineTest {
         simpleScore = new SimpleScore();
         naiveQuery = new QueryEngine(index, simpleScore);
 
-        tfScore = new TFScore();
-        orderedQuery = new QueryEngine(index, tfScore);
+        testScore = new TESTScore();
+        orderedQuery = new QueryEngine(index, testScore);
 
     }
     @After
@@ -61,7 +63,7 @@ public class QueryEngineTest {
         result = naiveQuery.getWebsites("first OR second");
         Assert.assertEquals("OR simple query",2, result.size());
         result = naiveQuery.getWebsites("with OR the");
-        Assert.assertEquals("OR simple query second time", 3, result.size());
+        Assert.assertEquals("OR simple query second time", 2, result.size());
 
         // tests AND
         result = naiveQuery.getWebsites("website for");
@@ -70,7 +72,7 @@ public class QueryEngineTest {
         Assert.assertEquals("AND simple query second time", 3, result.size());
 
         // tests AND and OR
-        result = naiveQuery.getWebsites("website second OR extra");
+        result = naiveQuery.getWebsites("website second OR other");
         Assert.assertEquals("Complex query size", 2, result.size());
 
         // we were having a bug when searching for another simple naiveQuery the second time, therefore this test again.
@@ -80,9 +82,18 @@ public class QueryEngineTest {
 
     @Test
     public void queryOrderTest(){
-        result = orderedQuery.getWebsites("testing");
-        Assert.assertEquals("simple query", "http://example.com/third", result.get(0).getUrl());
 
+        // test AND
+        result = orderedQuery.getWebsites("testing with");
+        Assert.assertEquals("And logic", "http://example.com/second", result.get(0).getUrl());
+
+        // test OR
+        result = orderedQuery.getWebsites("query OR with OR first");
+        Assert.assertEquals("Or logic", "http://example.com/first", result.get(0).getUrl());
+
+        // tests AND and OR
+        result = orderedQuery.getWebsites("query first for OR with");
+        Assert.assertEquals("complex logic", "http://example.com/first", result.get(0).getUrl());
     }
 
 }

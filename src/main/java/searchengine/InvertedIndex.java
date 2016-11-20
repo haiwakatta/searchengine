@@ -90,40 +90,6 @@ public class InvertedIndex implements Index {
         return false;
     }
 
-    /**
-     * Method used to check if the map is empty
-     *
-     * @return true if empty
-     */
-    public boolean isEmpty() {return map.isEmpty();}
-
-    /**
-     * Method used to check if the map contains aspecific key
-     *
-     * @param key the key to be looked up
-     * @return true if contains the key
-     */
-
-    public boolean containsKey(String key) {
-        return map.containsKey(key);
-    }
-
-    /**
-     * Method used to check if the map contains a specific value
-     *
-     * @param value the value to be looked up
-     * @return true if contains the value
-     */
-
-    public boolean containsValue(String value) {
-        return map.containsKey(value);
-    }
-
-    /**
-     * This method checks the size of the map
-     *
-     * @return the size of the map
-     */
 
     public int size() {
         return map.size();

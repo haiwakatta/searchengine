@@ -3,8 +3,17 @@ package searchengine;
 /**
  * This class implements the score. It calculates the score according to
  * the total number of websites in the Index (database) relative to the number of websites a word occur
+ * @author Lucas Beck
  */
 public class IDFScore implements Score {
+
+    /**
+     * This method returns the score of the word using the IDF calculation systematic
+     * @param word word to be assigned a score
+     * @param site a website the word is contained
+     * @param index the index of the database of websites
+     * @return the score of the word on a particular website given an index
+     */
     @Override
     public double getScore(String word, Website site, Index index) {
         double totalNum = 0;
@@ -24,7 +33,7 @@ public class IDFScore implements Score {
      * @param x double number
      * @return the log base 2 in a double number
      */
-    public static double logBase2 (double x){
+    private static double logBase2 (double x){
         return (Math.log(x)/Math.log(2));
     }
 }
