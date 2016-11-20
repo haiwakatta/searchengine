@@ -68,8 +68,8 @@ public class QueryEngineTest {
         // tests AND
         result = naiveQuery.getWebsites("website for");
         Assert.assertEquals("AND simple query", 3, result.size());
-        result = naiveQuery.getWebsites("website for");
-        Assert.assertEquals("AND simple query second time", 3, result.size());
+        result = naiveQuery.getWebsites("website some other");
+        Assert.assertEquals("AND simple query second time", "http://example.com/third",result.get(0).getUrl());
 
         // tests AND and OR
         result = naiveQuery.getWebsites("website second OR other");
