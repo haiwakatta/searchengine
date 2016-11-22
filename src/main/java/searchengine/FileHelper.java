@@ -84,7 +84,7 @@ public class FileHelper {
 
                         wordList = new ArrayList<String>();
                     }
-                    wordList.add(line);
+                    wordList.add(line.toLowerCase()); // make sure all the words are lower case
                 }
             }
 
