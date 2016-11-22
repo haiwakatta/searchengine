@@ -90,7 +90,7 @@ public class SearchEngine extends ResourceConfig {
 
         System.out.println("Handling request for query word \"" + query + "\"");
 
-        for (Website w: engine.getWebsites(query.toLowerCase())) { // lookup and add the url of websites to the result list
+        for (Website w: engine.getWebsites(query)) { // lookup and add the url of websites to the result list
                 resultList.add(w.getUrl());
         }
 

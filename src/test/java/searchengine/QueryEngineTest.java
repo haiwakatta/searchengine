@@ -84,6 +84,10 @@ public class QueryEngineTest {
         // we were having a bug when searching for another simple naiveQuery the second time, therefore this test again.
         result = naiveQuery.getWebsites("query");
         Assert.assertEquals("simpe query second time", "http://example.com/first",result.get(0).getUrl());
+
+        // makes sure that there is no distinction between lower and upper case when searching
+        result = naiveQuery.getWebsites("Website");
+        Assert.assertEquals("Case distinction", 3, result.size());
     }
 
     @Test

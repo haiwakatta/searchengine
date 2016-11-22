@@ -33,11 +33,17 @@ public class QueryEngine {
      */
     public List<Website> getWebsites(String query) {
         List<String> queries;
+        List<String> lowerCaseQueries = new ArrayList<>();
         Map<Website, Double> result = new HashMap<>();
 
         queries = Arrays.asList(query.split(" OR ")); // splits queries that use OR
 
-        for (String q : queries) {  // iterate through all queries split
+        // makes sure there is no distinction between lower and upper case
+        for (String q : queries){
+            lowerCaseQueries.add(q.toLowerCase());
+        }
+
+        for (String q : lowerCaseQueries) {  // iterate through all queries split
             for (Website w: subQuery(q).keySet()){ // send the queries split by "or" to be processed by subquery and then iterate in the websites returned
                 if (!result.containsKey(w)){ // if the result was not added yet
                     result.put(w, subQuery(q).get(w)); // put the result with its score
