@@ -41,7 +41,13 @@ public class QueryEngineTest {
         simpleScore = new SimpleScore();
         naiveQuery = new QueryEngine(index, simpleScore);
 
-        testScore = new TESTScore();
+        // created anonymous class to return a simple value
+        testScore = new Score(){
+            @Override
+            public double getScore(String word, Website site, Index index) {
+                return word.length();
+            }
+        };
         orderedQuery = new QueryEngine(index, testScore);
 
     }
@@ -83,10 +89,6 @@ public class QueryEngineTest {
     @Test
     public void queryOrderTest(){
 
-        // test AND
-        result = orderedQuery.getWebsites("testing with");
-        Assert.assertEquals("And logic", "http://example.com/second", result.get(0).getUrl());
-
         // test OR
         result = orderedQuery.getWebsites("query OR with OR first");
         Assert.assertEquals("Or logic", "http://example.com/first", result.get(0).getUrl());
@@ -97,3 +99,4 @@ public class QueryEngineTest {
     }
 
 }
+
