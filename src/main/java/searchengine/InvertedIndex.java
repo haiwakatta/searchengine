@@ -45,13 +45,10 @@ public class InvertedIndex implements Index {
                 }
 
                 if (!isWebsiteContained(map.get(currentWord), currentWebsite)) { // check if the current website is already in the list
-                    map.get(currentWord).add(currentWebsite); // add the currentwebsite to the list for the currentword
-
+                    map.get(currentWord).add(currentWebsite); // add the currentWebsite to the list for the currentWord
                 }
             }
         }
-
-
     }
 
     /**
