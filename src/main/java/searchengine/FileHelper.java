@@ -43,7 +43,6 @@ public class FileHelper {
      * @return the list of websites that are contained in the database file.
      */
     public static List<Website> parseFile(String arg) {
-
         List<Website> result = new ArrayList<Website>();
         String url = null;
         String title = null;
@@ -54,17 +53,14 @@ public class FileHelper {
         { // try to read file, otherwise go to catch
             Scanner sc = new Scanner(new File(arg), "UTF-8");
             while (sc.hasNext()) {
-
                 String line = sc.nextLine().trim();
 
                 if (line.startsWith("*PAGE:")) {
                     // new entry starts
                     // save the old one
                     if (isEntryValid(url, title, wordList)) { // only add the entry if entry is valid
-
                         result.add(new Website(url, title, wordList));
                     }
-
 
                     // if reaches new website, sets line and title to null and saves url
                     title = null;
@@ -73,15 +69,12 @@ public class FileHelper {
                 }
 
                 else if (url != null && title == null) { // if it found an url, save the title
-
                     title = line;
                 }
 
                 // add the words to the list
                 else if (url != null && title != null) {
-
                     if (wordList == null) { // checks if the word for this website was initialized
-
                         wordList = new ArrayList<String>();
                     }
                     wordList.add(line.toLowerCase()); // make sure all the words are lower case
