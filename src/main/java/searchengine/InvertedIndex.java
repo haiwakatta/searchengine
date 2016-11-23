@@ -29,12 +29,12 @@ public class InvertedIndex implements Index {
      * this word appears. Words that appear more than once in a website are counted
      * only once.
      *
-     * @param listofWebsites a preprocessed list of websites with url, title and list of words
+     * @param listOfWebsites a preprocessed list of websites with url, title and list of words
      */
-    public void build(List<Website> listofWebsites){
+    public void build(List<Website> listOfWebsites){
         map.clear();
-        numWebsites = listofWebsites.size();
-        for (Website currentWebsite: listofWebsites ){ // iterate through the list of websites
+        numWebsites = listOfWebsites.size();
+        for (Website currentWebsite: listOfWebsites ){ // iterate through the list of websites
 
             for (String currentWord: currentWebsite.getWords()) {// iterate through the list of words of each website
 
