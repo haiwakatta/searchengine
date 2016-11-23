@@ -60,7 +60,7 @@ public class InvertedIndex implements Index {
      */
     public List<Website> lookup(String word){
 
-        if (map.get(word) == null){ // returns an empty list and not null in case it does not find any websites
+        if (map.get(word) == null){ // returns an empty list and not null in case it does not find any website
             return new ArrayList<Website>();
         }
         return map.get(word);
@@ -86,7 +86,6 @@ public class InvertedIndex implements Index {
         }
         return false;
     }
-
 
     public int size() {
         return map.size();
