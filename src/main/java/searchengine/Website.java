@@ -11,7 +11,6 @@ import java.util.List;
  * @author Lucas Beck
  */
 public class Website {
-
     private String url;
     private String title;
     private List<String> words;
@@ -31,7 +30,6 @@ public class Website {
         this.words = words;
     }
 
-
     /**
      * Returns the website's URL.
      *
@@ -48,7 +46,6 @@ public class Website {
      */
     public String getTitle() {
         return this.title;
-
     }
 
     /**
@@ -68,7 +65,6 @@ public class Website {
      * @return the website's list of words
      */
     public List<String> getWords() {
-
         return this.words;
     }
 
@@ -88,7 +84,6 @@ public class Website {
         if (url != null ? !url.equals(website.url) : website.url != null) return false;
         if (title != null ? !title.equals(website.title) : website.title != null) return false;
         return words != null ? words.equals(website.words) : website.words == null;
-
     }
 
     @Override
