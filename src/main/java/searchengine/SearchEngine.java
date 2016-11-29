@@ -22,6 +22,7 @@ import java.util.List;
  * @author Martin Aumüller
  * @author Leonid Rusnac
  * @author Lucas Beck
+ * @author Stefan Wachmann
  */
 @Configuration
 @EnableAutoConfiguration
