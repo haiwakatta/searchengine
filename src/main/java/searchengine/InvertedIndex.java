@@ -31,10 +31,12 @@ public class InvertedIndex implements Index {
      * more than once in a website.
      *
      *
-     * @param listofWebsites a preprocessed list of websites with url, title and list of words
+     * @param listOfWebsites a preprocessed list of websites with url, title and list of words
      */
-    public void build(List<Website> listofWebsites){
+    public void build(List<Website> listOfWebsites){
         map.clear();
+        numWebsites = listOfWebsites.size();
+        for (Website currentWebsite: listOfWebsites ){ // iterate through the list of websites
         numWebsites = listofWebsites.size();
         websites = listofWebsites;
 
@@ -49,13 +51,10 @@ public class InvertedIndex implements Index {
                 }
 
                 if (!isWebsiteContained(map.get(currentWord), currentWebsite)) { // check if the current website is already in the list
-                    map.get(currentWord).add(currentWebsite); // add the currentwebsite to the list for the currentword
-
+                    map.get(currentWord).add(currentWebsite); // add the currentWebsite to the list for the currentWord
                 }
             }
         }
-
-
     }
 
     /**
@@ -67,7 +66,7 @@ public class InvertedIndex implements Index {
      */
     public List<Website> lookup(String word){
 
-        if (map.get(word) == null){ // returns an empty list and not null in case it does not find any websites
+        if (map.get(word) == null){ // returns an empty list and not null in case it does not find any website
             return new ArrayList<Website>();
         }
         return map.get(word);
@@ -98,7 +97,6 @@ public class InvertedIndex implements Index {
         }
         return false;
     }
-
 
     public int size() {
         return map.size();
