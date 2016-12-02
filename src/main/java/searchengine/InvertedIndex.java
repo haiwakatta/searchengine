@@ -13,6 +13,7 @@ public class InvertedIndex implements Index {
 
     private Map<String, List<Website>> map;
     private int numWebsites;
+    private List<Website> websites; // store websites so don't have to iterate through all the map again when passing the websites
 
     /**
      * The constructor of the InvertedIndex object.
@@ -26,14 +27,17 @@ public class InvertedIndex implements Index {
     /**
      * This method takes a list of websites and initialize the map with its inputs
      * where each key is a word and each value is a list of the websites in which
-     * this word appears. Words that appear more than once in a website are counted
-     * only once.
+     * this word appears. No website is duplicated for a particular word, even if the word is contained
+     * more than once in a website.
+     *
      *
      * @param listofWebsites a preprocessed list of websites with url, title and list of words
      */
     public void build(List<Website> listofWebsites){
         map.clear();
         numWebsites = listofWebsites.size();
+        websites = listofWebsites;
+
         for (Website currentWebsite: listofWebsites ){ // iterate through the list of websites
 
             for (String currentWord: currentWebsite.getWords()) {// iterate through the list of words of each website
@@ -74,6 +78,11 @@ public class InvertedIndex implements Index {
         return numWebsites;
     }
 
+    @Override
+    public List<Website> getWebsite() {
+        return websites;
+    }
+
     /**
      * A static method used to test if a website is already contained
      * in a list of websites.
@@ -106,4 +115,5 @@ public class InvertedIndex implements Index {
                 "map=" + map +
                 '}';
     }
+
 }

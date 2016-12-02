@@ -47,6 +47,11 @@ public class SimpleIndex implements Index {
         return numWebsites;
     }
 
+    @Override
+    public List<Website> getWebsite() {
+        return list;
+    }
+
     /**
      * This method returns a String representation of the Index
      *

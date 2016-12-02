@@ -10,13 +10,14 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by user on 13/11/2016.
+ * This test assesses the validity of the implementations of the interface Score.
  */
 public class ScoreTest {
     private Index index;
     private Score scoreTf;
     private Score scoreIdf;
     private Score scoreTfidf;
+    private Score scoreBM25;
     private Website website1;
     private Website website2;
     private Website website3;
@@ -38,6 +39,7 @@ public class ScoreTest {
         scoreTf = new TFScore();
         scoreIdf = new IDFScore();
         scoreTfidf = new TFIDFScore();
+        scoreBM25 = new BM25Score();
     }
 
     @After
@@ -45,6 +47,8 @@ public class ScoreTest {
         index = null;
         scoreTf = null;
         scoreIdf = null;
+        scoreBM25 = null;
+        scoreTfidf = null;
     }
 
     @Test
@@ -90,6 +94,22 @@ public class ScoreTest {
         // word that occur in two websites
         score = scoreTfidf.getScore("cooler", website3, index);
         Assert.assertEquals("Word cooler", 1.16, score, 0.01);
+    }
+
+    @Test
+    public void testScoreBM25 () {
+
+        // word that occur in one website
+        double score = scoreBM25.getScore("second", website2, index);
+        Assert.assertEquals("Word second", 2.77, score, 0.01);
+
+        // word that does not occur
+        score = scoreBM25.getScore("banana", website2, index);
+        Assert.assertEquals("Word does not exist", 0, score, 0.01);
+
+        // word that occur in two websites
+        score = scoreBM25.getScore("cooler", website3, index);
+        Assert.assertEquals("Word cooler", 1.18, score, 0.01);
     }
 
 }

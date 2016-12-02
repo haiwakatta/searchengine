@@ -25,7 +25,7 @@ public class FileHelper {
      * @param words the list of words within the website
      * @return true if valid.
      *
-     * @author Lucas Beck
+     *
      */
     public static boolean isEntryValid(String url, String title, List<String> words) {
         if (url == null) return false;
@@ -83,7 +83,7 @@ public class FileHelper {
                     if (wordList == null) { // checks if the word for this website was initialized
 
                         wordList = new ArrayList<String>();
-                    }
+                      }
                     wordList.add(line.toLowerCase()); // make sure all the words are lower case
                 }
             }

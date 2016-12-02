@@ -32,4 +32,10 @@ public interface Index {
      * @return the number of websites
      */
     int numWebsites();
+
+    /**
+     * This method returns a list with all the websites contained within the index
+     * @return a list of websites
+     */
+    List<Website> getWebsite ();
 }
