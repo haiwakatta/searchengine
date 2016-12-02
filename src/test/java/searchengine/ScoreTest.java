@@ -101,7 +101,7 @@ public class ScoreTest {
 
         // word that occur in one website
         double score = scoreBM25.getScore("second", website2, index);
-        Assert.assertEquals("Word second", 2.77, score, 0.01);
+        Assert.assertEquals("Word second", 1.63, score, 0.01);
 
         // word that does not occur
         score = scoreBM25.getScore("banana", website2, index);
@@ -109,7 +109,7 @@ public class ScoreTest {
 
         // word that occur in two websites
         score = scoreBM25.getScore("cooler", website3, index);
-        Assert.assertEquals("Word cooler", 1.18, score, 0.01);
+        Assert.assertEquals("Word cooler", 0.74, score, 0.01);
     }
 
 }

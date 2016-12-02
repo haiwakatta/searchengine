@@ -76,7 +76,7 @@ public class InvertedIndex implements Index {
     }
 
     @Override
-    public List<Website> getWebsite() {
+    public List<Website> getWebsites() {
         return websites;
     }
 
@@ -110,6 +110,24 @@ public class InvertedIndex implements Index {
         return "InvertedIndex{" +
                 "map=" + map +
                 '}';
+    }
+
+    /**
+     * This method is used to compare if the current object is equal to a certain object
+     * @param o the object to be compared
+     * @return true if the objects are equal
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        InvertedIndex that = (InvertedIndex) o;
+
+        if (numWebsites != that.numWebsites) return false;
+        if (map != null ? !map.equals(that.map) : that.map != null) return false;
+        return websites != null ? websites.equals(that.websites) : that.websites == null;
+
     }
 
 }

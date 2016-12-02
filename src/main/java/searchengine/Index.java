@@ -37,5 +37,5 @@ public interface Index {
      * This method returns a list with all the websites contained within the index
      * @return a list of websites
      */
-    List<Website> getWebsite ();
+    List<Website> getWebsites ();
 }

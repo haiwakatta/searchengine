@@ -48,7 +48,7 @@ public class SimpleIndex implements Index {
     }
 
     @Override
-    public List<Website> getWebsite() {
+    public List<Website> getWebsites() {
         return list;
     }
 
