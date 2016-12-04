@@ -3,8 +3,7 @@ body{ background:#003540
 
 #urllist {
     color: #969696;
-    border: 1px solid #dcdcdc;
-    border-radius: 3px;
+    border: none;
 }
 
 .logo{
