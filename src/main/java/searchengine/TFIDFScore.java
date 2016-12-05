@@ -9,6 +9,9 @@ package searchengine;
  */
 public class TFIDFScore implements Score {
 
+    Score tf = new TFScore();
+    Score idf = new IDFScore();
+
     /**
      * This method returns the score of the word using the TFIDF calculation systematic
      * @param word word to be assigned a score
@@ -18,9 +21,6 @@ public class TFIDFScore implements Score {
      */
     @Override
     public double getScore(String word, Website site, Index index) {
-
-        Score tf = new TFScore();
-        Score idf = new IDFScore();
 
         double tfScore = tf.getScore(word, site, index);
         double idfScore = idf.getScore(word, site, index);
