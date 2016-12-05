@@ -9,12 +9,12 @@ $(document).ready(function() {
             data: {query: $('#searchbox').val()}
         }).success( function (data) { 
             console.log("Received response " + data);
-            $("#responsesize").html("<p>" + data.length + " websites retrieved</p>");
-            buffer = "<ul>\n";
+            $("#responsesize").html("<p>"+ data.length + " matching websites were found:</p>");
+            buffer = "<ul class='fa-ul'>\n";
             $.each(data, function(index, value) { 
-                buffer += "<li><a href=\"" + value + "\">" + value + "</a></li>\n";
+                buffer += "<li><i class='fa-li fa fa-caret-right'></i><a href=\"" + value + "\">" + value + "</a></li>\n";
             });
-            buffer += "</ul>";
+            buffer += "</p>";
             $("#urllist").html(buffer);
         });
     });
