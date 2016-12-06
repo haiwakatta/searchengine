@@ -37,5 +37,5 @@ public interface Index {
      * This method returns the average number of words per website in the index.
      * @return average number of words per website.
      */
-    double averageWords ();
+    double getAverageDocumentLength();
 }

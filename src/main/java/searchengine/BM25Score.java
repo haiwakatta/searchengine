@@ -33,7 +33,7 @@ public class BM25Score implements Score {
         double tf = tfScore.getScore(word,site,index);
         double idf = idfScore.getScore(word,site,index);
 
-        averageWords = index.averageWords();
+        averageWords = index.getAverageDocumentLength();
 
         double numerator = k +1;
         double denominator = (k * ((1 - b) + (b * (numberOfWords/averageWords))) + tf);

@@ -16,7 +16,7 @@ public class InvertedIndex implements Index {
     private Map<String, List<Website>> map;
     private int numWebsites;
     private List<Website> websites; // store websites so don't have to iterate through all the map again when passing the websites
-    private double averageWords;
+    private double averageDocumentLength;
 
     /**
      * The constructor of the InvertedIndex object.
@@ -76,7 +76,7 @@ public class InvertedIndex implements Index {
     }
 
     /**
-     * This method calculates the average words in the index and assigns it to the instance variable "averageWords"
+     * This method calculates the average words in the index and assigns it to the instance variable "getAverageDocumentLength"
      */
     private void calculateAverageWords() {
         double numWebsites = 0;
@@ -87,7 +87,7 @@ public class InvertedIndex implements Index {
             numWebsites++;
         }
 
-        averageWords = (numWords/numWebsites);
+        averageDocumentLength = (numWords/numWebsites);
     }
 
     @Override
@@ -96,8 +96,8 @@ public class InvertedIndex implements Index {
     }
 
     @Override
-    public double averageWords() {
-        return averageWords;
+    public double getAverageDocumentLength() {
+        return averageDocumentLength;
     }
 
     /**
