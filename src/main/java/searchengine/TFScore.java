@@ -7,13 +7,6 @@ package searchengine;
  */
 public class TFScore implements Score {
 
-    /**
-     * This method returns the score of the word using the TF calculation systematic.
-     * @param word word to be assigned a score
-     * @param site a website the word is contained
-     * @param index the index of the database of websites
-     * @return the score of the word on a particular website given an index
-     */
     @Override
     public double getScore(String word, Website site, Index index) {
         double result = 0;

@@ -4,7 +4,9 @@ import java.util.*;
 
 
 /**
- *  This class implements the interface index in a inverted manner using a map
+ * This class implements the interface index in a inverted manner using a map. each key is a word
+ * and each value is a list of the websites in which this word appears. No website is duplicated for
+ * a particular word, even if the word is contained more than once in a website.
  *
  *  @author Lucas Beck
  */
@@ -25,14 +27,7 @@ public class InvertedIndex implements Index {
         this.map = map;
     }
 
-    /**
-     * This method takes a list of websites and initialize the map with its inputs
-     * where each key is a word and each value is a list of the websites in which
-     * this word appears. No website is duplicated for a particular word, even if the word is contained
-     * more than once in a website.
-     *
-     * @param listOfWebsites a preprocessed list of websites with url, title and list of words
-     */
+
     public void build(List<Website> listOfWebsites){
         map.clear();
         numWebsites = listOfWebsites.size();
@@ -56,13 +51,7 @@ public class InvertedIndex implements Index {
         calculateAverageWords();
     }
 
-    /**
-     *  This method provides the list of websites according to the word entered
-     *  as a parameter.
-     *
-     * @param word the word which to search for websites
-     * @return a list of websites that contains the word entered.
-     */
+
     public List<Website> lookup(String word){
 
         if (map.get(word) == null){ // returns an empty list and not null in case it does not find any website
@@ -87,14 +76,6 @@ public class InvertedIndex implements Index {
     }
 
     /**
-     * This method returns the size of the index
-     * @return size of the map.
-     */
-    public int size() {
-        return map.size();
-    }
-
-    /**
      * This method calculates the average words in the index and assigns it to the instance variable "averageWords"
      */
     private void calculateAverageWords() {
@@ -109,19 +90,11 @@ public class InvertedIndex implements Index {
         averageWords = (numWords/numWebsites);
     }
 
-    /**
-     * This method return the number of websites in the index.
-     * @return the number of websites.
-     */
     @Override
     public int numWebsites() {
         return numWebsites;
     }
 
-    /**
-     * This method returns the average words per website contained in the index.
-     * @return average words per websites.
-     */
     @Override
     public double averageWords() {
         return averageWords;

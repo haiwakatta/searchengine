@@ -3,8 +3,8 @@ package searchengine;
 import java.util.List;
 
 /**
- * {@code Index} refers to an object which contains a number of {@code Website} and some methods
- * to test wether words are contained in that list
+ * {@code Index} is a interface that represents a objects that contain a group of {@code Website}. The idea is
+ *  that this websites can be retrieved by searches made with individual words.
  *
  * @author Stefan Wachmann
  * @author Lucas Beck
@@ -12,16 +12,16 @@ import java.util.List;
 public interface Index {
 
     /**
-     * This method takes and preprocessed a list of website objects and create an index
+     * This method takes in a list of {@code Website} objects and create a index
      *
-     * @param websites - the list of websites to be preprocessed.
+     * @param websites - a list of {@code Website} objects
      */
     void build(List<Website> websites);
 
     /**
      * This method takes a query string and returns a list of websites where the query is contained.
      *
-     * @param query - the query string to search for     *
+     * @param query - the query string to search for
      * @return the list of processed websites.
      *
      */

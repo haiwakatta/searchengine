@@ -1,7 +1,7 @@
 package searchengine;
 
 /**
- * Created by user on 15/11/2016.
+ * This is a naive implementation of the score, used for testing purposes.
  */
 public class SimpleScore implements Score {
     @Override
