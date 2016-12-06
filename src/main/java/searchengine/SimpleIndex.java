@@ -2,6 +2,7 @@ package searchengine;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by haoqwu on 04/10/2016.
@@ -90,5 +91,17 @@ public class SimpleIndex implements Index {
                 '}';
     }
 
+    public List<String> getStarWords(String subQuery) {
+        List<String> result = new ArrayList<>();
+        for (Website w :list) {
+            for (String s : w.getWords()) {
+                if(s.startsWith(subQuery)) {
+                    result.add(s);
+                }
+            }
+        }
 
+
+        return result;
+    }
 }

@@ -43,6 +43,12 @@ public class QueryEngine {
             lowerCaseQueries.add(q.toLowerCase());
         }
 
+        // check if * for queries in "queries"
+        // add to some tmp string and remove the *query from queries
+        // call method
+            // split them in OR
+        // append/add to queries
+
         for (String q : lowerCaseQueries) {  // iterate through all queries split
             for (Website w: subQuery(q).keySet()){ // send the queries split by "or" to be processed by subquery and then iterate in the websites returned
                 if (!result.containsKey(w)){ // if the result was not added yet
@@ -75,6 +81,14 @@ public class QueryEngine {
         Map<Website, Double> tempMap = new HashMap();
 
         subQueries = Arrays.asList(query.split(" ")); // splits query
+
+        for(String subQ : subQueries){
+            if(subQ.endsWith("*")) {
+                List<String> starWords = new ArrayList<>(index.getStarWords(subQ));
+
+
+            }
+        }
 
         for(String subQ : subQueries){ // iterate through every split query
             if (scoredWebsites.isEmpty()) { // if the map is still empty

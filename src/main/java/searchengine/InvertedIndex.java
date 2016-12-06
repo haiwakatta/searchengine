@@ -138,5 +138,15 @@ public class InvertedIndex implements Index {
                 '}';
     }
 
+    public List<String> getStarWords(String subQuery) {
+        Set<String> wordList = map.keySet();
+        List<String> result = new ArrayList<>();
+        for (String s : wordList) {
+            if(s.startsWith(subQuery)) {
+                result.add(s);
+            }
+        }
+        return result;
+    }
 
 }

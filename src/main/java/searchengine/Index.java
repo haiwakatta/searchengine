@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * {@code Index} refers to an object which contains a number of {@code Website} and some methods
- * to test wether words are contained in that list
+ * to test whether words are contained in that list
  *
  * @author Stefan Wachmann
  * @author Lucas Beck
@@ -38,4 +38,11 @@ public interface Index {
      * @return average number of words per website.
      */
     double averageWords ();
+
+    /**
+     * This method returns a list of words that starts with the subQ string and is contained in any of the websites.
+     * @param subQ
+     * @return List of words that start with the subQ string.
+     */
+    List<String> getStarWords(String subQ);
 }
