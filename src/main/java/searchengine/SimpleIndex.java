@@ -12,6 +12,7 @@ import java.util.List;
 public class SimpleIndex implements Index {
     private List<Website> list;
     private int numWebsites;
+    private double averageWords;
 
     /**
      * The build method creates a list of websites from a provided list of websites
@@ -20,6 +21,7 @@ public class SimpleIndex implements Index {
      */
     public void build(List<Website> website){
         list = website;
+        calculateAverageWords();
     }
 
     /**
@@ -42,15 +44,39 @@ public class SimpleIndex implements Index {
         return ListOfWebsites;
     }
 
+    /**
+     * This method returns the number of websites contained in the index.
+     * @return number of websites.
+     */
     @Override
     public int numWebsites() {
         return numWebsites;
     }
 
+    /**
+     * This method returns the average number of words per website in the index.
+     * @return average number of words per website.
+     */
     @Override
-    public List<Website> getWebsites() {
-        return list;
+    public double averageWords() {
+        return averageWords;
     }
+
+    /**
+     * This method calculates the average words in the index and assigns it to the instance variable "averageWords"
+     */
+    private void calculateAverageWords() {
+        double numWebsites = 0;
+        double numWords = 0;
+
+        for (Website w : list){ // iterate through websites in the index
+            numWords += w.getWords().size(); // increases the number of words by the current website list of words size
+            numWebsites++;
+        }
+
+        averageWords = (numWords/numWebsites);
+    }
+
 
     /**
      * This method returns a String representation of the Index
