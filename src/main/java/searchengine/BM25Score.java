@@ -14,7 +14,6 @@ public class BM25Score implements Score {
     private double k;
     private double b;
     private double averageWords;
-    private Index index;
 
     /**
      * This method constructs the BM25Score object.
@@ -24,7 +23,6 @@ public class BM25Score implements Score {
         tfScore = new TFScore();
         k = 1.75;
         b = 0.75;
-        this.index = null;
     }
 
 
@@ -44,10 +42,7 @@ public class BM25Score implements Score {
         double tf = tfScore.getScore(word,site,index);
         double idf = idfScore.getScore(word,site,index);
 
-        if (!index.equals(this.index)){ // only calculate the average n of words again if the index is different
-            this.index = index; // store the index
-            averageWords = calculateAverageWords();
-        }
+        averageWords = index.averageWords();
 
         double numerator = k +1;
         double denominator = (k * ((1 - b) + (b * (numberOfWords/averageWords))) + tf);
@@ -61,6 +56,8 @@ public class BM25Score implements Score {
      * associated with the score class.
      * @return average number of words across websites in the index as a double
      */
+
+    /*
     private double calculateAverageWords (){
 
         double numWebsites = 0;
@@ -73,4 +70,5 @@ public class BM25Score implements Score {
 
         return (numWords/numWebsites);
     }
+    */
 }

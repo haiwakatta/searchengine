@@ -34,8 +34,8 @@ public interface Index {
     int numWebsites();
 
     /**
-     * This method returns a list with all the websites contained within the index
-     * @return a list of websites
+     * This method returns the average number of words per website in the index.
+     * @return average number of words per website.
      */
-    List<Website> getWebsites ();
+    double averageWords ();
 }

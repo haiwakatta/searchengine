@@ -14,6 +14,7 @@ public class InvertedIndex implements Index {
     private Map<String, List<Website>> map;
     private int numWebsites;
     private List<Website> websites; // store websites so don't have to iterate through all the map again when passing the websites
+    private double averageWords;
 
     /**
      * The constructor of the InvertedIndex object.
@@ -29,7 +30,6 @@ public class InvertedIndex implements Index {
      * where each key is a word and each value is a list of the websites in which
      * this word appears. No website is duplicated for a particular word, even if the word is contained
      * more than once in a website.
-     *
      *
      * @param listOfWebsites a preprocessed list of websites with url, title and list of words
      */
@@ -53,6 +53,7 @@ public class InvertedIndex implements Index {
                 }
             }
         }
+        calculateAverageWords();
     }
 
     /**
@@ -70,16 +71,6 @@ public class InvertedIndex implements Index {
         return map.get(word);
     }
 
-    @Override
-    public int numWebsites() {
-        return numWebsites;
-    }
-
-    @Override
-    public List<Website> getWebsites() {
-        return websites;
-    }
-
     /**
      * A static method used to test if a website is already contained
      * in a list of websites.
@@ -88,7 +79,6 @@ public class InvertedIndex implements Index {
      * @param website {@code Website} the website to be searched
      * @return true if the list contains the website.
      */
-
     private static boolean isWebsiteContained(List<Website> list, Website website) {
         for (Website w : list) {
             if (w.equals(website)) return true;
@@ -96,13 +86,49 @@ public class InvertedIndex implements Index {
         return false;
     }
 
+    /**
+     * This method returns the size of the index
+     * @return size of the map.
+     */
     public int size() {
         return map.size();
     }
 
     /**
+     * This method calculates the average words in the index and assigns it to the instance variable "averageWords"
+     */
+    private void calculateAverageWords() {
+        double numWebsites = 0;
+        double numWords = 0;
+
+        for (Website w : websites){ // iterate through websites in the index
+            numWords += w.getWords().size(); // increases the number of words by the current website list of words size
+            numWebsites++;
+        }
+
+        averageWords = (numWords/numWebsites);
+    }
+
+    /**
+     * This method return the number of websites in the index.
+     * @return the number of websites.
+     */
+    @Override
+    public int numWebsites() {
+        return numWebsites;
+    }
+
+    /**
+     * This method returns the average words per website contained in the index.
+     * @return average words per websites.
+     */
+    @Override
+    public double averageWords() {
+        return averageWords;
+    }
+
+    /**
      * This method returns a String representation of the Index
-     *
      * @return InvertedIndex string representation
      */
     @Override
@@ -112,22 +138,5 @@ public class InvertedIndex implements Index {
                 '}';
     }
 
-    /**
-     * This method is used to compare if the current object is equal to a certain object
-     * @param o the object to be compared
-     * @return true if the objects are equal
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        InvertedIndex that = (InvertedIndex) o;
-
-        if (numWebsites != that.numWebsites) return false;
-        if (map != null ? !map.equals(that.map) : that.map != null) return false;
-        return websites != null ? websites.equals(that.websites) : that.websites == null;
-
-    }
 
 }
