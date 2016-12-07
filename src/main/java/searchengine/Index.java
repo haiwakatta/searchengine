@@ -21,7 +21,7 @@ public interface Index {
     /**
      * This method takes a query string and returns a list of websites where the query is contained.
      *
-     * @param query - the query string to search for     *
+     * @param query - the query string to search for
      * @return the list of processed websites.
      *
      */
@@ -41,7 +41,7 @@ public interface Index {
 
     /**
      * This method returns a list of words that starts with the subQ string and is contained in any of the websites.
-     * @param subQ
+     * @param subQ - a prefix search query string.
      * @return List of words that start with the subQ string.
      */
     List<String> getStarWords(String subQ);

@@ -11,6 +11,7 @@ public class QueryEngine {
 
     private Index index;
     private Score score;
+    private List<String> prefixStrings = new ArrayList<>();
 
     /**
      *  The constructor of the QueryEngine. Takes an index as parameter
@@ -35,6 +36,8 @@ public class QueryEngine {
         List<String> queries;
         List<String> lowerCaseQueries = new ArrayList<>();
         Map<Website, Double> result = new HashMap<>();
+        List<String> starQueries = new ArrayList<>();
+        List<String> queriesToRemove = new ArrayList<>();
 
         queries = Arrays.asList(query.split(" OR ")); // splits queries that use OR
 
@@ -43,11 +46,16 @@ public class QueryEngine {
             lowerCaseQueries.add(q.toLowerCase());
         }
 
-        // check if * for queries in "queries"
-        // add to some tmp string and remove the *query from queries
-        // call method
-            // split them in OR
-        // append/add to queries
+        // check if any query is is a prefix search (star query) and find all prefix search queries.
+        for (String q : lowerCaseQueries) {
+            if (q.contains("*")) {
+                queriesToRemove.add(q); // add the current query to a remove list as to remove the queries containing "*" from lowerCaseQueries when not iterating through the list.
+                starQueries(q);
+                starQueries.addAll(getPrefixStrings()); // add all new queries from the prefix search to a placeholder list.
+            }
+        }
+        lowerCaseQueries.removeAll(queriesToRemove); // remove all queries containing stars.
+        lowerCaseQueries.addAll(starQueries); // append all query strings from the placeholder list.
 
         for (String q : lowerCaseQueries) {  // iterate through all queries split
             for (Website w: subQuery(q).keySet()){ // send the queries split by "or" to be processed by subquery and then iterate in the websites returned
@@ -82,14 +90,6 @@ public class QueryEngine {
 
         subQueries = Arrays.asList(query.split(" ")); // splits query
 
-        for(String subQ : subQueries){
-            if(subQ.endsWith("*")) {
-                List<String> starWords = new ArrayList<>(index.getStarWords(subQ));
-
-
-            }
-        }
-
         for(String subQ : subQueries){ // iterate through every split query
             if (scoredWebsites.isEmpty()) { // if the map is still empty
                 for (Website w : index.lookup(subQ) ){ // iterate through the websites found for the word
@@ -104,8 +104,62 @@ public class QueryEngine {
                 tempMap.clear(); // make sure to clear results to be compared
             }
         }
-
         return scoredWebsites;
+    }
+
+    /**
+     * This method takes in a query string containing a "*" and matches words in the index that start with the string
+     * before the "*" character and returns new queries from the matched words.
+     * @param starQuery a query containing the "*" character.
+     * @return a list of new queries based on the passed query containing a "*",
+     * where any word ending with a "*" is replaced with a word starting with the string before the "*".
+     */
+
+    public void starQueries(String starQuery) {
+        List<String> starSubQueries = Arrays.asList(starQuery.split(" ")); // splits starQuery into sub-queries.
+        List<String> result = new ArrayList<>();
+        List<String> tmpList = new ArrayList<>();
+
+        for(String subQ : starSubQueries) { // iterate through the sub-queries in the query string containing a "*".
+            if (subQ.endsWith("*")) { // find any word that ends with a "*".
+                String trimmedSubQ = subQ.substring(0, subQ.length() - 1); // Adding a trimmed sub-query without the "*" from the sub-query star word.
+                for (String s : index.getStarWords(trimmedSubQ)) {
+                    if (starQuery.startsWith(subQ)) {
+                        tmpList.add(starQuery.replace(subQ, s));
+                    } else {
+                        tmpList.add(starQuery.replace(" " + subQ, " " + s));
+                    }
+                }
+            }
+            result.addAll(tmpList);
+
+        }
+        for (String s : result) {
+            if (s.contains("*")) {
+                starQueries(s);
+            }
+        }
+
+        if (!result.isEmpty()) {
+            for (String r : result) {
+                if (!r.contains("*") && !r.equals(null) && r.length() >= starQuery.length()) {
+                    setPrefixStrings(r);
+                }
+            }
+        }
+        result.clear(); tmpList.clear();
+    }
+
+    public void setPrefixStrings(String prefixString) {
+        if (!prefixStrings.contains(prefixString)) {
+            prefixStrings.add(prefixString);
+        }
+    }
+
+    public List<String> getPrefixStrings() {
+        List<String> getPrefix = new ArrayList<>(prefixStrings);
+        prefixStrings.clear();
+        return getPrefix;
     }
 
 

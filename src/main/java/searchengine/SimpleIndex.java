@@ -100,8 +100,6 @@ public class SimpleIndex implements Index {
                 }
             }
         }
-
-
         return result;
     }
 }
