@@ -12,12 +12,11 @@ import java.util.List;
  */
 public class SimpleIndex implements Index {
     private List<Website> list;
-    private int numWebsites;
     private double averageDocumentLength;
 
     public void build(List<Website> website){
         list = website;
-        calculateAverageWords();
+        calculateAverageDocumentLength();
     }
 
 
@@ -31,13 +30,12 @@ public class SimpleIndex implements Index {
                 ListOfWebsites.add(w);
             }
         }
-        numWebsites = ListOfWebsites.size();
         return ListOfWebsites;
     }
 
     @Override
     public int numWebsites() {
-        return numWebsites;
+        return list.size();
     }
 
     @Override
@@ -48,7 +46,7 @@ public class SimpleIndex implements Index {
     /**
      * This method calculates the average words in the index and assigns it to the instance variable "getAverageDocumentLength"
      */
-    private void calculateAverageWords() {
+    private void calculateAverageDocumentLength() {
         double numWebsites = 0;
         double numWords = 0;
 

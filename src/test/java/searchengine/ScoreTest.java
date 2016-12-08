@@ -21,6 +21,7 @@ public class ScoreTest {
     private Website website1;
     private Website website2;
     private Website website3;
+    private Index simpleIndex;
 
     @Before
     public void setUp() {
@@ -35,6 +36,8 @@ public class ScoreTest {
 
         index = new InvertedIndex(new HashMap());
         index.build(Arrays.asList(website1,website2, website3));
+        simpleIndex = new SimpleIndex();
+        simpleIndex.build(Arrays.asList(website1,website2, website3));
 
         scoreTf = new TFScore();
         scoreIdf = new IDFScore();
@@ -49,6 +52,7 @@ public class ScoreTest {
         scoreIdf = null;
         scoreBM25 = null;
         scoreTfidf = null;
+        simpleIndex = null;
     }
 
     @Test
@@ -110,6 +114,11 @@ public class ScoreTest {
         // word that occur in two websites
         score = scoreBM25.getScore("cooler", website3, index);
         Assert.assertEquals("Word cooler", 0.74, score, 0.01);
+
+        // test one case with the simple index to make sure the getAverageDocumentLength was done correctly
+        // in both indexes
+        score = scoreBM25.getScore("cooler", website3, simpleIndex);
+        Assert.assertEquals("simpleIndex", 0.74, score, 0.01);
     }
 
 }
