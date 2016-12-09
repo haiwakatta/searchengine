@@ -4,32 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by haoqwu on 04/10/2016.
- *
+ * This class implements the interface index using a list. Each website corresponds to
+ * a instance the list.
+ * *
  * @author Stefan Wachmann
  * @author Lucas Beck
  */
 public class SimpleIndex implements Index {
     private List<Website> list;
-    private int numWebsites;
-    private double averageWords;
+    private double averageDocumentLength;
 
-    /**
-     * The build method creates a list of websites from a provided list of websites
-     *
-     * @param website takes a list of websites as the parameter
-     */
     public void build(List<Website> website){
         list = website;
-        calculateAverageWords();
+        calculateAverageDocumentLength();
     }
 
-    /**
-     * The lookup method takes a word query and determines if it is contained in a given list of websites.
-     *
-     * @param word takes a search query as the parameter
-     * @return list of websites in which the word is contained.
-     */
+
     public List<Website> lookup(String word){
         List<Website> ListOfWebsites = new ArrayList<Website>();
         // Search for line in the list of websites
@@ -40,32 +30,23 @@ public class SimpleIndex implements Index {
                 ListOfWebsites.add(w);
             }
         }
-        numWebsites = ListOfWebsites.size();
         return ListOfWebsites;
     }
 
-    /**
-     * This method returns the number of websites contained in the index.
-     * @return number of websites.
-     */
     @Override
     public int numWebsites() {
-        return numWebsites;
+        return list.size();
     }
 
-    /**
-     * This method returns the average number of words per website in the index.
-     * @return average number of words per website.
-     */
     @Override
-    public double averageWords() {
-        return averageWords;
+    public double getAverageDocumentLength() {
+        return averageDocumentLength;
     }
 
     /**
-     * This method calculates the average words in the index and assigns it to the instance variable "averageWords"
+     * This method calculates the average words in the index and assigns it to the instance variable "getAverageDocumentLength"
      */
-    private void calculateAverageWords() {
+    private void calculateAverageDocumentLength() {
         double numWebsites = 0;
         double numWords = 0;
 
@@ -74,9 +55,8 @@ public class SimpleIndex implements Index {
             numWebsites++;
         }
 
-        averageWords = (numWords/numWebsites);
+        averageDocumentLength = (numWords/numWebsites);
     }
-
 
     /**
      * This method returns a String representation of the Index

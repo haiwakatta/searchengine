@@ -7,14 +7,7 @@ package searchengine;
  */
 public class IDFScore implements Score {
 
-    /**
-     * This method returns the score of the word using the IDF calculation systematic
-     * @param word word to be assigned a score
-     * @param site a website the word is contained
-     * @param index the index of the database of websites
-     * @return the score of the word on a particular website given an index
-     */
-    @Override
+         @Override
     public double getScore(String word, Website site, Index index) {
         double totalNum = 0;
         double siteNum = 0;
