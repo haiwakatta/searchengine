@@ -38,6 +38,13 @@ public class QueryEngine {
         Map<Website, Double> result = new HashMap<>();
         List<String> starQueries = new ArrayList<>();
         List<String> queriesToRemove = new ArrayList<>();
+        String url = null;
+        List<Website> approvedWebsites = new ArrayList<>();
+
+        if (query.startsWith("site:")) {
+            url = query.substring(5, query.indexOf(" "));
+            query = query.substring(query.indexOf(" "));
+        }
 
         queries = Arrays.asList(query.split(" OR ")); // splits queries that use OR
 
@@ -50,26 +57,37 @@ public class QueryEngine {
         for (String q : lowerCaseQueries) {
             if (q.contains("*")) {
                 queriesToRemove.add(q); // add the current query to a remove list as to remove the queries containing "*" from lowerCaseQueries when not iterating through the list.
-                starQueries(q);
-                starQueries.addAll(getPrefixStrings()); // add all new queries from the prefix search to a placeholder list.
+                starQueries(q); // call the method starQueries and pass the query to it.
+                starQueries.addAll(getPrefixStrings()); // add all new queries from the prefix search to the placeholder list.
             }
         }
         lowerCaseQueries.removeAll(queriesToRemove); // remove all queries containing stars.
         lowerCaseQueries.addAll(starQueries); // append all query strings from the placeholder list.
 
         for (String q : lowerCaseQueries) {  // iterate through all queries split
-            for (Website w: subQuery(q).keySet()){ // send the queries split by "or" to be processed by subquery and then iterate in the websites returned
+            for (Website w: subQuery(q).keySet()) { // send the queries split by "or" to be processed by subquery and then iterate in the websites returned
+                if (url != null) { // if a url-filter search has been detected do the following.
+                    if (w.getUrl().contains(url)) { // if the current website contains the url search.
+                        if (!approvedWebsites.contains(w)) { // and it is not contained in the list of approved websites already.
+                            approvedWebsites.add(w); // then add it to the list of approved websites.
+                        }
+                    }
+                }
                 if (!result.containsKey(w)){ // if the result was not added yet
                     result.put(w, subQuery(q).get(w)); // put the result with its score
-                }
-                else {
+                } else {
                     if (result.get(w) < subQuery(q).get(w)){ // if the result is contained but score is less, then substitute score
                         result.put(w, subQuery(q).get(w));
                     }
                 }
             }
         }
-        // returns the list in score order
+
+        if (url != null) { // if a url-filter search has been made
+            result.keySet().retainAll((approvedWebsites)); // retain only approved websites in the result list.
+            approvedWebsites.clear();
+        }
+
         return result. entrySet () . stream () . sorted (( x , y ) -> y . getValue () .
                 compareTo ( x . getValue () ) ) . map ( Map . Entry :: getKey ) . collect (
                 Collectors. toList () );
@@ -118,44 +136,50 @@ public class QueryEngine {
     public void starQueries(String starQuery) {
         List<String> starSubQueries = Arrays.asList(starQuery.split(" ")); // splits starQuery into sub-queries.
         List<String> result = new ArrayList<>();
-        List<String> tmpList = new ArrayList<>();
 
         for(String subQ : starSubQueries) { // iterate through the sub-queries in the query string containing a "*".
             if (subQ.endsWith("*")) { // find any word that ends with a "*".
                 String trimmedSubQ = subQ.substring(0, subQ.length() - 1); // Adding a trimmed sub-query without the "*" from the sub-query star word.
-                for (String s : index.getStarWords(trimmedSubQ)) {
-                    if (starQuery.startsWith(subQ)) {
-                        tmpList.add(starQuery.replace(subQ, s));
-                    } else {
-                        tmpList.add(starQuery.replace(" " + subQ, " " + s));
+                for (String s : index.getStarWords(trimmedSubQ)) { // iterates through a list of replacement words for the sub-query.
+                    if (starQuery.startsWith(subQ)) { // if the prefix search query starts with the current sub-query
+                        result.add(starQuery.replace(subQ, s)); // then add the prefix search query while replacing the current replacement word.
+                    } else { // if the current sub-query is not at the start of the prefix search query
+                        result.add(starQuery.replace(" " + subQ, " " + s)); // make sure only to replace whole words and not word-endings for words that end with the sub-query.
                     }
                 }
             }
-            result.addAll(tmpList);
 
         }
         for (String s : result) {
             if (s.contains("*")) {
-                starQueries(s);
+                starQueries(s); // A recursive call that clears the prefix queries of further asterisks if the original search contained more than one asterisk.
             }
         }
 
         if (!result.isEmpty()) {
             for (String r : result) {
                 if (!r.contains("*") && !r.equals(null) && r.length() >= starQuery.length()) {
-                    setPrefixStrings(r);
+                    setPrefixStrings(r); // saves searches that are completely cleared of asterisks to a list outside of the method that is being called recursively.
                 }
             }
         }
-        result.clear(); tmpList.clear();
+        result.clear(); // clear lists
     }
 
+    /**
+     * A way to save search queries while inside a recursive call
+     * @param prefixString a prefix search query cleared of asterisks
+     */
     public void setPrefixStrings(String prefixString) {
         if (!prefixStrings.contains(prefixString)) {
             prefixStrings.add(prefixString);
         }
     }
 
+    /**
+     * A way to get all search query strings constructed from a prefix search query (after splitting by "OR".
+     * @return a list of prefix searches cleared of asterisks.
+     */
     public List<String> getPrefixStrings() {
         List<String> getPrefix = new ArrayList<>(prefixStrings);
         prefixStrings.clear();
