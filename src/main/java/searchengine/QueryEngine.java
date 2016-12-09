@@ -41,9 +41,9 @@ public class QueryEngine {
         String url = null;
         List<Website> approvedWebsites = new ArrayList<>();
 
-        if (query.startsWith("site:")) {
-            url = query.substring(5, query.indexOf(" "));
-            query = query.substring(query.indexOf(" "));
+        if (query.startsWith("site:")) { // Do for queries starting with "site:"
+            url = query.substring(5, query.indexOf(" ")); // save the string to filter from. That is the string that starts after "site:" and ends before the first " ".
+            query = query.substring(query.indexOf(" ")); // remove everything until the first " " from the query.
         }
 
         queries = Arrays.asList(query.split(" OR ")); // splits queries that use OR
@@ -171,7 +171,7 @@ public class QueryEngine {
      * @param prefixString a prefix search query cleared of asterisks
      */
     public void setPrefixStrings(String prefixString) {
-        if (!prefixStrings.contains(prefixString)) {
+        if (!prefixStrings.contains(prefixString)) { // only add query strings that are not already contained.
             prefixStrings.add(prefixString);
         }
     }
@@ -182,7 +182,7 @@ public class QueryEngine {
      */
     public List<String> getPrefixStrings() {
         List<String> getPrefix = new ArrayList<>(prefixStrings);
-        prefixStrings.clear();
+        prefixStrings.clear(); // clear to avoid duplicates in further searches.
         return getPrefix;
     }
 
