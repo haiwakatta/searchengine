@@ -2,6 +2,7 @@ package searchengine;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * This class implements the interface index using a list. Each website corresponds to
@@ -70,5 +71,15 @@ public class SimpleIndex implements Index {
                 '}';
     }
 
-
+    public List<String> getStarWords(String subQuery) {
+        List<String> result = new ArrayList<>();
+        for (Website w :list) {
+            for (String s : w.getWords()) { // walk through all words on all websites.
+                if(s.startsWith(subQuery)) { // if a word starts with the prefix sub-query
+                    result.add(s); // then add it to the result list.
+                }
+            }
+        }
+        return result; // return a list of words that start with the prefix sub-query.
+    }
 }

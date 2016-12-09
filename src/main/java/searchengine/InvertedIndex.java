@@ -108,5 +108,15 @@ public class InvertedIndex implements Index {
                 '}';
     }
 
+    public List<String> getStarWords(String subQuery) {
+        Set<String> wordList = map.keySet();
+        List<String> result = new ArrayList<>();
+        for (String s : wordList) { // walk through all words on all websites.
+            if(s.startsWith(subQuery)) { // if a word starts with the prefix sub-query
+                result.add(s); // then add it to the result list.
+            }
+        }
+        return result; // return a list of words that start with the prefix sub-query.
+    }
 
 }
