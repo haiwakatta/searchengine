@@ -6,6 +6,6 @@ For the Search Engine to work properly one of these files must be given as an ar
 
 For using the search engine with IntelliJ IDEA edit configurations and set "Program arguments" to "./data/enwiki-tiny.txt"
 
-*Have fun using our Search Engine!*
+**Have fun using our Search Engine!**
 
 _Stefan, Lucas, and Hao_
