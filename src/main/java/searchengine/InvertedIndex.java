@@ -4,7 +4,9 @@ import java.util.*;
 
 
 /**
- *  This class implements the interface index in a inverted manner using a map
+ * This class implements the interface index in a inverted manner using a map. each key is a word
+ * and each value is a list of the websites in which this word appears. No website is duplicated for
+ * a particular word, even if the word is contained more than once in a website.
  *
  *  @author Lucas Beck
  */
@@ -12,30 +14,20 @@ import java.util.*;
 public class InvertedIndex implements Index {
 
     private Map<String, List<Website>> map;
-    private int numWebsites;
     private List<Website> websites; // store websites so don't have to iterate through all the map again when passing the websites
-    private double averageWords;
+    private double averageDocumentLength;
 
     /**
      * The constructor of the InvertedIndex object.
      * takes the type of map to be created
      */
     public InvertedIndex(Map map) {
-        this.numWebsites = 0;
         this.map = map;
     }
 
-    /**
-     * This method takes a list of websites and initialize the map with its inputs
-     * where each key is a word and each value is a list of the websites in which
-     * this word appears. No website is duplicated for a particular word, even if the word is contained
-     * more than once in a website.
-     *
-     * @param listOfWebsites a preprocessed list of websites with url, title and list of words
-     */
+
     public void build(List<Website> listOfWebsites){
         map.clear();
-        numWebsites = listOfWebsites.size();
         websites = listOfWebsites;
 
         for (Website currentWebsite: listOfWebsites ){ // iterate through the list of websites
@@ -53,16 +45,10 @@ public class InvertedIndex implements Index {
                 }
             }
         }
-        calculateAverageWords();
+        calculateAverageDocumentLength();
     }
 
-    /**
-     *  This method provides the list of websites according to the word entered
-     *  as a parameter.
-     *
-     * @param word the word which to search for websites
-     * @return a list of websites that contains the word entered.
-     */
+
     public List<Website> lookup(String word){
 
         if (map.get(word) == null){ // returns an empty list and not null in case it does not find any website
@@ -87,17 +73,9 @@ public class InvertedIndex implements Index {
     }
 
     /**
-     * This method returns the size of the index
-     * @return size of the map.
+     * This method calculates the average words in the index and assigns it to the instance variable "getAverageDocumentLength"
      */
-    public int size() {
-        return map.size();
-    }
-
-    /**
-     * This method calculates the average words in the index and assigns it to the instance variable "averageWords"
-     */
-    private void calculateAverageWords() {
+    private void calculateAverageDocumentLength() {
         double numWebsites = 0;
         double numWords = 0;
 
@@ -106,25 +84,17 @@ public class InvertedIndex implements Index {
             numWebsites++;
         }
 
-        averageWords = (numWords/numWebsites);
+        averageDocumentLength = (numWords/numWebsites);
     }
 
-    /**
-     * This method return the number of websites in the index.
-     * @return the number of websites.
-     */
     @Override
     public int numWebsites() {
-        return numWebsites;
+        return websites.size();
     }
 
-    /**
-     * This method returns the average words per website contained in the index.
-     * @return average words per websites.
-     */
     @Override
-    public double averageWords() {
-        return averageWords;
+    public double getAverageDocumentLength() {
+        return averageDocumentLength;
     }
 
     /**
