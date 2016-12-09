@@ -37,7 +37,7 @@ public interface Index {
      * This method returns the average number of words per website in the index.
      * @return average number of words per website.
      */
-    double averageWords ();
+    double getAverageDocumentLength();
 
     /**
      * This method returns a list of words that starts with the subQ string and is contained in any of the websites.
