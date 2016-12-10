@@ -45,7 +45,7 @@ public class QueryEngine {
         List<Website> approvedWebsites = new ArrayList<>();
 
         if (query.startsWith("site:")) { // Do for queries starting with "site:"
-            url = query.substring(5, query.indexOf(" ")); // save the string to filter from. That is the string that starts after "site:" and ends before the first " ".
+            url = query.substring(5, query.indexOf(" ")).toLowerCase(); // save the string to filter from. That is the string that starts after "site:" and ends before the first " ".
             query = query.substring(query.indexOf(" ")); // remove everything until the first " " from the query.
         }
 
@@ -70,7 +70,7 @@ public class QueryEngine {
         for (String q : lowerCaseQueries) {  // iterate through all queries split
             for (Website w: subQuery(q).keySet()) { // send the queries split by "or" to be processed by subquery and then iterate in the websites returned
                 if (url != null) { // if a url-filter search has been detected do the following.
-                    if (w.getUrl().contains(url)) { // if the current website contains the url search.
+                    if (w.getUrl().toLowerCase().contains(url)) { // if the current website contains the url search.
                         if (!approvedWebsites.contains(w)) { // and it is not contained in the list of approved websites already.
                             approvedWebsites.add(w); // then add it to the list of approved websites.
                         }

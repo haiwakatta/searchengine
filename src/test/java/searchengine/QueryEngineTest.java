@@ -164,8 +164,8 @@ public class QueryEngineTest {
         result = naiveQuery.getWebsites("site:University th*");
         Assert.assertEquals("URL & prefix - one asterisk", "http://wikipedia.com/IT_University_Copenhagen", result.get(0).getUrl());
 
-        // URL Filter and complex prefix search
-        result = naiveQuery.getWebsites("site:University th* OR m* now");
+        // URL Filter (in lower case) and complex prefix search
+        result = naiveQuery.getWebsites("site:university th* OR m* now");
         Assert.assertEquals("URL & prefix - one asterisk", "http://wikipedia.com/IT_University_Copenhagen", result.get(0).getUrl());
     }
 }
