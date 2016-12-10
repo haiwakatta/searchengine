@@ -109,9 +109,9 @@ public class InvertedIndex implements Index {
     }
 
     /**
-     *
-     * @param subQuery
-     * @return
+     * Method for returning words in the data set that start with the passed sub-query.
+     * @param subQuery A prefix sub-query where the asterisk has been removed.
+     * @return a list of words that start with the passed sub-query.
      */
     public List<String> getStarWords(String subQuery) {
         Set<String> wordList = map.keySet();
