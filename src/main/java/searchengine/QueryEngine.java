@@ -173,7 +173,7 @@ public class QueryEngine {
      * A way to save search queries while inside a recursive call
      * @param prefixString a prefix search query cleared of asterisks
      */
-    public void setPrefixStrings(String prefixString) {
+    private void setPrefixStrings(String prefixString) {
         if (!prefixStrings.contains(prefixString)) { // only add query strings that are not already contained.
             prefixStrings.add(prefixString);
         }
@@ -183,7 +183,7 @@ public class QueryEngine {
      * A way to get all search query strings constructed from a prefix search query (after splitting by "OR".
      * @return a list of prefix searches cleared of asterisks.
      */
-    public List<String> getPrefixStrings() {
+    private List<String> getPrefixStrings() {
         List<String> getPrefix = new ArrayList<>(prefixStrings);
         prefixStrings.clear(); // clear to avoid duplicates in further searches.
         return getPrefix;
