@@ -39,7 +39,7 @@ public class QueryEngine {
         List<String> queries;
         List<String> lowerCaseQueries = new ArrayList<>();
         Map<Website, Double> result = new HashMap<>();
-        List<String> starQueries = new ArrayList<>();
+        List<String> prefixQueries = new ArrayList<>();
         List<String> queriesToRemove = new ArrayList<>();
         String url = null;
         List<Website> approvedWebsites = new ArrayList<>();
@@ -56,16 +56,16 @@ public class QueryEngine {
             lowerCaseQueries.add(q.toLowerCase());
         }
 
-        // check if any query is is a prefix search (star query) and find all prefix search queries.
+        // check if any query is is a prefix search (prefix query) and find all prefix search queries.
         for (String q : lowerCaseQueries) {
             if (q.contains("*")) {
                 queriesToRemove.add(q); // add the current query to a remove list as to remove the queries containing "*" from lowerCaseQueries when not iterating through the list.
-                starQueries(q); // call the method starQueries and pass the query to it.
-                starQueries.addAll(getPrefixStrings()); // add all new queries from the prefix search to the placeholder list.
+                prefixQueries(q); // call the method prefixQueries and pass the query to it.
+                prefixQueries.addAll(getPrefixStrings()); // add all new queries from the prefix search to the placeholder list.
             }
         }
         lowerCaseQueries.removeAll(queriesToRemove); // remove all queries containing stars.
-        lowerCaseQueries.addAll(starQueries); // append all query strings from the placeholder list.
+        lowerCaseQueries.addAll(prefixQueries); // append all query strings from the placeholder list.
 
         for (String q : lowerCaseQueries) {  // iterate through all queries split
             for (Website w: subQuery(q).keySet()) { // send the queries split by "or" to be processed by subquery and then iterate in the websites returned
@@ -131,23 +131,23 @@ public class QueryEngine {
     /**
      * This method takes in a query string containing a "*" and matches words in the index that start with the string
      * before the "*" character and returns new queries from the matched words.
-     * @param starQuery a query containing the "*" character.
+     * @param prefixQuery a query containing the "*" character.
      * @return a list of new queries based on the passed query containing a "*",
      * where any word ending with a "*" is replaced with a word starting with the string before the "*".
      */
 
-    public void starQueries(String starQuery) {
-        List<String> starSubQueries = Arrays.asList(starQuery.split(" ")); // splits starQuery into sub-queries.
+    public void prefixQueries(String prefixQuery) {
+        List<String> starSubQueries = Arrays.asList(prefixQuery.split(" ")); // splits prefixQuery into sub-queries.
         List<String> result = new ArrayList<>();
 
         for(String subQ : starSubQueries) { // iterate through the sub-queries in the query string containing a "*".
             if (subQ.endsWith("*")) { // find any word that ends with a "*".
-                String trimmedSubQ = subQ.substring(0, subQ.length() - 1); // Adding a trimmed sub-query without the "*" from the sub-query star word.
-                for (String s : index.getStarWords(trimmedSubQ)) { // iterates through a list of replacement words for the sub-query.
-                    if (starQuery.startsWith(subQ)) { // if the prefix search query starts with the current sub-query
-                        result.add(starQuery.replace(subQ, s)); // then add the prefix search query while replacing the current replacement word.
+                String trimmedSubQ = subQ.substring(0, subQ.length() - 1); // Adding a trimmed sub-query without the "*" from the sub-query prefix word.
+                for (String s : index.getPrefixWords(trimmedSubQ)) { // iterates through a list of replacement words for the sub-query.
+                    if (prefixQuery.startsWith(subQ)) { // if the prefix search query starts with the current sub-query
+                        result.add(prefixQuery.replace(subQ, s)); // then add the prefix search query while replacing the current replacement word.
                     } else { // if the current sub-query is not at the start of the prefix search query
-                        result.add(starQuery.replace(" " + subQ, " " + s)); // make sure only to replace whole words and not word-endings for words that end with the sub-query.
+                        result.add(prefixQuery.replace(" " + subQ, " " + s)); // make sure only to replace whole words and not word-endings for words that end with the sub-query.
                     }
                 }
             }
@@ -155,13 +155,13 @@ public class QueryEngine {
         }
         for (String s : result) {
             if (s.contains("*")) {
-                starQueries(s); // A recursive call that clears the prefix queries of further asterisks if the original search contained more than one asterisk.
+                prefixQueries(s); // A recursive call that clears the prefix queries of further asterisks if the original search contained more than one asterisk.
             }
         }
 
         if (!result.isEmpty()) {
             for (String r : result) {
-                if (!r.contains("*") && !r.equals(null) && r.length() >= starQuery.length()) {
+                if (!r.contains("*") && !r.equals(null) && r.length() >= prefixQuery.length()) {
                     setPrefixStrings(r); // saves searches that are completely cleared of asterisks to a list outside of the method that is being called recursively.
                 }
             }

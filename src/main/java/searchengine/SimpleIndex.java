@@ -76,7 +76,7 @@ public class SimpleIndex implements Index {
      * @param subQuery A prefix sub-query where the asterisk has been removed
      * @return a list of words that start with the passed sub-query.
      */
-    public List<String> getStarWords(String subQuery) {
+    public List<String> getPrefixWords(String subQuery) {
         List<String> result = new ArrayList<>();
         for (Website w :list) {
             for (String s : w.getWords()) { // walk through all words on all websites.

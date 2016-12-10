@@ -44,5 +44,5 @@ public interface Index {
      * @param subQ - a prefix search query string.
      * @return List of words that start with the subQ string.
      */
-    List<String> getStarWords(String subQ);
+    List<String> getPrefixWords(String subQ);
 }

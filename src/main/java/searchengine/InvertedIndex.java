@@ -113,7 +113,7 @@ public class InvertedIndex implements Index {
      * @param subQuery A prefix sub-query where the asterisk has been removed.
      * @return a list of words that start with the passed sub-query.
      */
-    public List<String> getStarWords(String subQuery) {
+    public List<String> getPrefixWords(String subQuery) {
         Set<String> wordList = map.keySet();
         List<String> result = new ArrayList<>();
         for (String s : wordList) { // walk through all words on all websites.
