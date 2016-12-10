@@ -32,12 +32,15 @@ public class QueryEngineTest {
                 "like", "with");
         List<String> words3 = Arrays.asList("third", "website", "for", "testing", "using", "some", "other", "words", "for",
                 "testing", "more");
+        List<String> words4 = Arrays.asList("This", "ITU", "site", "is", "used", "for", "testing", "the", "URL", "Filter", "now",
+                "these", "are", "just", "more", "words", "to", "have", "this", "come", "last");
 
         Website website1 = new Website("http://example.com/first", "first", words1);
         Website website2 = new Website("http://example.com/second", "second", words2);
         Website website3 = new Website("http://example.com/third", "third", words3);
+        Website website4 = new Website("http://wikipedia.com/IT_University_Copenhagen", "ITU", words4);
 
-        index.build(Arrays.asList(website1, website2, website3));
+        index.build(Arrays.asList(website1, website2, website3, website4));
         simpleScore = new SimpleScore();
         naiveQuery = new QueryEngine(index, simpleScore);
 
@@ -69,7 +72,7 @@ public class QueryEngineTest {
         result = naiveQuery.getWebsites("first OR second");
         Assert.assertEquals("OR simple query",2, result.size());
         result = naiveQuery.getWebsites("with OR the");
-        Assert.assertEquals("OR simple query second time", 2, result.size());
+        Assert.assertEquals("OR simple query second time", 3, result.size());
 
         // tests AND
         result = naiveQuery.getWebsites("website for");
@@ -92,7 +95,6 @@ public class QueryEngineTest {
 
     @Test
     public void queryOrderTest(){
-
         // test OR
         result = orderedQuery.getWebsites("query OR with OR first");
         Assert.assertEquals("Or logic", "http://example.com/first", result.get(0).getUrl());
@@ -102,4 +104,68 @@ public class QueryEngineTest {
         Assert.assertEquals("Complex logic", "http://example.com/first", result.get(0).getUrl());
     }
 
+    @Test
+    public void urlFilterTest(){
+        // test "site:" plus com
+        result = naiveQuery.getWebsites("site:com for");
+        Assert.assertEquals("URL filter com", "[Website{url='http://wikipedia.com/IT_University_Copenhagen', title='ITU', words=[This, ITU, site, is, used, for, testing, the, URL, Filter, now, these, are, just, more, words, to, have, this, come, last]}, Website{url='http://example.com/third', title='third', words=[third, website, for, testing, using, some, other, words, for, testing, more]}, Website{url='http://example.com/first', title='first', words=[first, website, for, testing, the, query]}, Website{url='http://example.com/second', title='second', words=[second, website, for, testing, with, some, different, words, like, with]}]", result.toString());
+
+        // test space after "site:"
+        result = naiveQuery.getWebsites("site: for");
+        Assert.assertEquals("URL Filter space", "[Website{url='http://wikipedia.com/IT_University_Copenhagen', title='ITU', words=[This, ITU, site, is, used, for, testing, the, URL, Filter, now, these, are, just, more, words, to, have, this, come, last]}, Website{url='http://example.com/third', title='third', words=[third, website, for, testing, using, some, other, words, for, testing, more]}, Website{url='http://example.com/first', title='first', words=[first, website, for, testing, the, query]}, Website{url='http://example.com/second', title='second', words=[second, website, for, testing, with, some, different, words, like, with]}]", result.toString());
+
+        // test full website URL
+        result = naiveQuery.getWebsites("site:http://example.com/third for");
+        Assert.assertEquals("URL Filter full website", "http://example.com/third", result.get(0).getUrl());
+
+        // test part of website URL
+        result = naiveQuery.getWebsites("site:University for");
+        Assert.assertEquals("URL Filter for of URL", "http://wikipedia.com/IT_University_Copenhagen", result.get(0).getUrl());
+
+        // test wrong website substring
+        result = naiveQuery.getWebsites("site:wrong for");
+        Assert.assertEquals("URL Filter wrong substring", 0, result.size());
+    }
+
+    @Test
+    public void prefixSearchTest(){
+        // test simple prefix search with only one asterisk
+        result = naiveQuery.getWebsites("th*");
+        Assert.assertEquals("Prefix search - one asterisk", "[Website{url='http://wikipedia.com/IT_University_Copenhagen', title='ITU', words=[This, ITU, site, is, used, for, testing, the, URL, Filter, now, these, are, just, more, words, to, have, this, come, last]}, Website{url='http://example.com/third', title='third', words=[third, website, for, testing, using, some, other, words, for, testing, more]}, Website{url='http://example.com/first', title='first', words=[first, website, for, testing, the, query]}]", result.toString());
+
+        // test simple prefix search with multiple asterisks
+        result = naiveQuery.getWebsites("th* u*");
+        Assert.assertEquals("Prefix search - multiple asterisks", "[Website{url='http://wikipedia.com/IT_University_Copenhagen', title='ITU', words=[This, ITU, site, is, used, for, testing, the, URL, Filter, now, these, are, just, more, words, to, have, this, come, last]}, Website{url='http://example.com/third', title='third', words=[third, website, for, testing, using, some, other, words, for, testing, more]}]", result.toString());
+
+        // test simple prefix search with an added normal search word
+        result = naiveQuery.getWebsites("fo* now");
+        Assert.assertEquals("Prefix search - asterisk plus normal word", "http://wikipedia.com/IT_University_Copenhagen", result.get(0).getUrl());
+
+        // test complex prefix search with one asterisk on either side of the OR
+        result = naiveQuery.getWebsites("fo* OR th*");
+        Assert.assertEquals("Prefix search - complex one asterisk", "[Website{url='http://wikipedia.com/IT_University_Copenhagen', title='ITU', words=[This, ITU, site, is, used, for, testing, the, URL, Filter, now, these, are, just, more, words, to, have, this, come, last]}, Website{url='http://example.com/third', title='third', words=[third, website, for, testing, using, some, other, words, for, testing, more]}, Website{url='http://example.com/first', title='first', words=[first, website, for, testing, the, query]}, Website{url='http://example.com/second', title='second', words=[second, website, for, testing, with, some, different, words, like, with]}]", result.toString());
+
+        // test complex prefix search with multiple asterisks on either side of the OR
+        result = naiveQuery.getWebsites("fo* t* OR th* f*");
+        Assert.assertEquals("Prefix search - complex multiple asterisks", "[Website{url='http://wikipedia.com/IT_University_Copenhagen', title='ITU', words=[This, ITU, site, is, used, for, testing, the, URL, Filter, now, these, are, just, more, words, to, have, this, come, last]}, Website{url='http://example.com/third', title='third', words=[third, website, for, testing, using, some, other, words, for, testing, more]}, Website{url='http://example.com/first', title='first', words=[first, website, for, testing, the, query]}, Website{url='http://example.com/second', title='second', words=[second, website, for, testing, with, some, different, words, like, with]}]", result.toString());
+
+        // test complex prefix search with an added search word
+        result = naiveQuery.getWebsites("for t* OR th* for");
+        Assert.assertEquals("Prefix search - complex added normal word", "[Website{url='http://wikipedia.com/IT_University_Copenhagen', title='ITU', words=[This, ITU, site, is, used, for, testing, the, URL, Filter, now, these, are, just, more, words, to, have, this, come, last]}, Website{url='http://example.com/third', title='third', words=[third, website, for, testing, using, some, other, words, for, testing, more]}, Website{url='http://example.com/first', title='first', words=[first, website, for, testing, the, query]}, Website{url='http://example.com/second', title='second', words=[second, website, for, testing, with, some, different, words, like, with]}]", result.toString());
+
+        // test asterisk inside the word (not at the end)
+        result = naiveQuery.getWebsites("fo*r");
+        Assert.assertEquals("Prefix search - complex multiple asterisks", 0, result.size());
+    }
+
+    @Test
+    public void urlFilterAndPrefixSearchTest() {
+        // URL Filter and simple prefix search
+        result = naiveQuery.getWebsites("site:University th*");
+        Assert.assertEquals("URL & prefix - one asterisk", "http://wikipedia.com/IT_University_Copenhagen", result.get(0).getUrl());
+
+        // URL Filter and complex prefix search
+        result = naiveQuery.getWebsites("site:University th* OR m* now");
+        Assert.assertEquals("URL & prefix - one asterisk", "http://wikipedia.com/IT_University_Copenhagen", result.get(0).getUrl());
+    }
 }
