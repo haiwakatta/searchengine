@@ -71,6 +71,11 @@ public class SimpleIndex implements Index {
                 '}';
     }
 
+    /**
+     *
+     * @param subQuery
+     * @return
+     */
     public List<String> getStarWords(String subQuery) {
         List<String> result = new ArrayList<>();
         for (Website w :list) {

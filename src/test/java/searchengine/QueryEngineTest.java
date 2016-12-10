@@ -83,7 +83,7 @@ public class QueryEngineTest {
 
         // we were having a bug when searching for another simple naiveQuery the second time, therefore this test again.
         result = naiveQuery.getWebsites("query");
-        Assert.assertEquals("simpe query second time", "http://example.com/first",result.get(0).getUrl());
+        Assert.assertEquals("Simple query second time", "http://example.com/first",result.get(0).getUrl());
 
         // makes sure that there is no distinction between lower and upper case when searching
         result = naiveQuery.getWebsites("Website");
@@ -99,8 +99,7 @@ public class QueryEngineTest {
 
         // tests AND and OR
         result = orderedQuery.getWebsites("query first for OR with");
-        Assert.assertEquals("complex logic", "http://example.com/first", result.get(0).getUrl());
+        Assert.assertEquals("Complex logic", "http://example.com/first", result.get(0).getUrl());
     }
 
 }
-

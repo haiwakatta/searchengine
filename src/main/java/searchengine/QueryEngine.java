@@ -6,6 +6,9 @@ import java.util.stream.Collectors;
 /**
  * This class takes creates the object QueryEngine, which is responsible
  * for handling complex queries
+ *
+ * @author Stefan
+ * @author Lucas
  */
 public class QueryEngine {
 
