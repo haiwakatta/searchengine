@@ -136,7 +136,7 @@ public class QueryEngine {
      * where any word ending with a "*" is replaced with a word starting with the string before the "*".
      */
 
-    public void prefixQueries(String prefixQuery) {
+    private void prefixQueries(String prefixQuery) {
         List<String> prefixSubQueries = Arrays.asList(prefixQuery.split(" ")); // splits prefixQuery into sub-queries.
         List<String> result = new ArrayList<>();
 
@@ -151,7 +151,6 @@ public class QueryEngine {
                     }
                 }
             }
-
         }
         for (String s : result) {
             if (s.contains("*")) {
