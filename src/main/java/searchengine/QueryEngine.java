@@ -104,7 +104,7 @@ public class QueryEngine {
      * @param query the query to be searched
      * @return Map containing websites and its scores.
      */
-    private Map<Website, Double>  subQuery (String query){
+    private Map<Website, Double> subQuery (String query){
         List<String> subQueries;
         Map<Website, Double> scoredWebsites = new HashMap();
         Map<Website, Double> tempMap = new HashMap();
