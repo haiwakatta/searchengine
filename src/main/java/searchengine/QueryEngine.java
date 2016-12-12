@@ -46,7 +46,8 @@ public class QueryEngine {
 
         if (query.startsWith("site:")) { // Do for queries starting with "site:"
             url = query.substring(5, query.indexOf(" ")).toLowerCase(); // save the string to filter from. That is the string that starts after "site:" and ends before the first " ".
-            query = query.substring(query.indexOf(" ")); // remove everything until the first " " from the query.
+            query = query.substring(query.indexOf(" ") + 1); // remove everything until the first " " from the query.
+            System.out.println("query:" + query + "\nurl:" + url);
         }
 
         queries = Arrays.asList(query.split(" OR ")); // splits queries that use OR
