@@ -151,11 +151,7 @@ public class QueryEngine {
                 }
             } else if (subQ.contains("*")) {    // if a subquery contains an asterisk but not at the end of the word
                                                 // then the query string should still be added after removing the faulty subquery.
-                if (prefixQuery.startsWith(subQ)) {
-                    result.add(prefixQuery.replace(subQ, ""));
-                } else {
-                    result.add(prefixQuery.replace(" " + subQ, ""));
-                }
+                result.add(prefixQuery.replace(subQ, ""));
             }
         }
         for (String s : result) {
