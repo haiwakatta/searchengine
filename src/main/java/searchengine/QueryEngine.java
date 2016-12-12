@@ -61,11 +61,10 @@ public class QueryEngine {
             if (q.contains("*")) {
                 queriesToRemove.add(q); // add the current query to a remove list as to remove the queries containing "*" from lowerCaseQueries when not iterating through the list.
                 prefixQueries(q); // call the method prefixQueries and pass the query to it.
-                prefixQueries.addAll(getPrefixStrings()); // add all new queries from the prefix search to the placeholder list.
             }
         }
         lowerCaseQueries.removeAll(queriesToRemove); // remove all queries containing asterisks.
-        lowerCaseQueries.addAll(prefixQueries); // append all query strings from the placeholder list.
+        lowerCaseQueries.addAll(getPrefixStrings()); // append all all new querie strings from the prefix search.
 
         for (String q : lowerCaseQueries) {  // iterate through all queries split
             for (Website w: subQuery(q).keySet()) { // send the queries split by "or" to be processed by subquery and then iterate in the websites returned
