@@ -159,7 +159,7 @@ public class QueryEngine {
 
         if (!result.isEmpty()) {
             for (String r : result) {
-                if (!r.contains("*") && r.length() >= prefixQuery.length()) {
+                if (!r.contains("*") && r.length() >= prefixQuery.replace("*", "").length()) {
                     setPrefixStrings(r); // saves searches that are completely cleared of asterisks to a list outside of the method that is being called recursively.
                 }
             }
