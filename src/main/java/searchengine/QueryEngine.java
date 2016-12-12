@@ -154,7 +154,7 @@ public class QueryEngine {
                 if (prefixQuery.startsWith(subQ)) {
                     result.add(prefixQuery.replace(subQ, ""));
                 } else {
-                    result.add(prefixQuery.replace(" " + subQ, " "));
+                    result.add(prefixQuery.replace(" " + subQ, ""));
                 }
             }
         }
