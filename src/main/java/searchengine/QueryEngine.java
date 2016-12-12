@@ -141,13 +141,20 @@ public class QueryEngine {
 
         for(String subQ : prefixSubQueries) { // iterate through the sub-queries in the query string containing a "*".
             if (subQ.endsWith("*")) { // find any word that ends with a "*".
-                String trimmedSubQ = subQ.substring(0, subQ.length() - 1); // adding a trimmed sub-query without the "*" from the sub-query prefix word.
-                for (String s : index.getPrefixWords(trimmedSubQ)) { // iterates through a list of replacement words for the sub-query.
-                    if (prefixQuery.startsWith(subQ)) { // if the prefix search query starts with the current sub-query
+                String trimmedSubQ = subQ.substring(0, subQ.length() - 1); // adding a trimmed subquery without the "*" from the subquery prefix word.
+                for (String s : index.getPrefixWords(trimmedSubQ)) { // iterates through a list of replacement words for the subquery.
+                    if (prefixQuery.startsWith(subQ)) { // if the prefix search query starts with the current subquery
                         result.add(prefixQuery.replace(subQ, s)); // then add the prefix search query while replacing the current replacement word.
-                    } else { // if the current sub-query is not at the start of the prefix search query
-                        result.add(prefixQuery.replace(" " + subQ, " " + s)); // make sure only to replace whole words and not word-endings for words that end with the sub-query.
+                    } else { // if the current subquery is not at the start of the prefix search query
+                        result.add(prefixQuery.replace(" " + subQ, " " + s)); // make sure only to replace whole words and not word-endings for words that end with the subquery.
                     }
+                }
+            } else if (subQ.contains("*")) {    // if a subquery contains an asterisk but not at the end of the word
+                                                // then the query string should still be added after removing the faulty subquery.
+                if (prefixQuery.startsWith(subQ)) {
+                    result.add(prefixQuery.replace(subQ, ""));
+                } else {
+                    result.add(prefixQuery.replace(" " + subQ, " "));
                 }
             }
         }
