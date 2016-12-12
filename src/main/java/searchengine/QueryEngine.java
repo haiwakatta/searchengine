@@ -141,7 +141,7 @@ public class QueryEngine {
 
         for(String subQ : prefixSubQueries) { // iterate through the sub-queries in the query string containing a "*".
             if (subQ.endsWith("*")) { // find any word that ends with a "*".
-                String trimmedSubQ = subQ.substring(0, subQ.length() - 1); // Adding a trimmed sub-query without the "*" from the sub-query prefix word.
+                String trimmedSubQ = subQ.substring(0, subQ.length() - 1); // adding a trimmed sub-query without the "*" from the sub-query prefix word.
                 for (String s : index.getPrefixWords(trimmedSubQ)) { // iterates through a list of replacement words for the sub-query.
                     if (prefixQuery.startsWith(subQ)) { // if the prefix search query starts with the current sub-query
                         result.add(prefixQuery.replace(subQ, s)); // then add the prefix search query while replacing the current replacement word.
@@ -153,13 +153,13 @@ public class QueryEngine {
         }
         for (String s : result) {
             if (s.contains("*")) {
-                prefixQueries(s); // A recursive call that clears the prefix queries of further asterisks if the original search contained more than one asterisk.
+                prefixQueries(s); // recursive call that clears the prefix queries of further asterisks if the original search contained more than one asterisk.
             }
         }
 
         if (!result.isEmpty()) {
             for (String r : result) {
-                if (!r.contains("*") && !r.equals(null) && r.length() >= prefixQuery.length()) {
+                if (!r.contains("*") && r.length() >= prefixQuery.length()) {
                     setPrefixStrings(r); // saves searches that are completely cleared of asterisks to a list outside of the method that is being called recursively.
                 }
             }
