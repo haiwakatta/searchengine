@@ -39,7 +39,6 @@ public class QueryEngine {
         List<String> queries;
         List<String> lowerCaseQueries = new ArrayList<>();
         Map<Website, Double> result = new HashMap<>();
-        List<String> prefixQueries = new ArrayList<>();
         List<String> queriesToRemove = new ArrayList<>();
         String url = null;
         List<Website> approvedWebsites = new ArrayList<>();
