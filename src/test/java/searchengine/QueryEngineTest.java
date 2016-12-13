@@ -116,11 +116,11 @@ public class QueryEngineTest {
 
         // test full website URL
         result = orderedQuery.getWebsites("site:http://example.com/third for");
-        Assert.assertEquals("URL Filter full website", "http://example.com/third", result.get(0).getUrl());
+        Assert.assertEquals("URL Filter full website", "[Website{url='http://example.com/third', title='third', words=[third, website, for, testing, using, some, other, words, for, testing, more]}]", result.toString());
 
         // test part of website URL
         result = orderedQuery.getWebsites("site:University for");
-        Assert.assertEquals("URL Filter for of URL", "http://wikipedia.com/IT_University_Copenhagen", result.get(0).getUrl());
+        Assert.assertEquals("URL Filter for of URL", "[Website{url='http://wikipedia.com/IT_University_Copenhagen', title='ITU', words=[This, ITU, site, is, used, for, testing, the, URL, Filter, now, these, are, just, more, words, to, have, this, come, last]}]", result.toString());
 
         // test wrong website substring
         result = orderedQuery.getWebsites("site:wrong for");
@@ -139,7 +139,7 @@ public class QueryEngineTest {
 
         // test simple prefix search with an added normal search word
         result = orderedQuery.getWebsites("fo* now");
-        Assert.assertEquals("Prefix search - asterisk plus normal word", "http://wikipedia.com/IT_University_Copenhagen", result.get(0).getUrl());
+        Assert.assertEquals("Prefix search - asterisk plus normal word", "[Website{url='http://wikipedia.com/IT_University_Copenhagen', title='ITU', words=[This, ITU, site, is, used, for, testing, the, URL, Filter, now, these, are, just, more, words, to, have, this, come, last]}]", result.toString());
 
         // test complex prefix search with one asterisk on either side of the OR
         result = orderedQuery.getWebsites("fo* OR th*");
@@ -166,10 +166,10 @@ public class QueryEngineTest {
     public void urlFilterAndPrefixSearchTest() {
         // URL Filter and simple prefix search
         result = orderedQuery.getWebsites("site:University th*");
-        Assert.assertEquals("URL & prefix - one asterisk", "http://wikipedia.com/IT_University_Copenhagen", result.get(0).getUrl());
+        Assert.assertEquals("URL & prefix - one asterisk", "[Website{url='http://wikipedia.com/IT_University_Copenhagen', title='ITU', words=[This, ITU, site, is, used, for, testing, the, URL, Filter, now, these, are, just, more, words, to, have, this, come, last]}]", result.toString());
 
         // URL Filter (in lowercase) and complex prefix search
         result = orderedQuery.getWebsites("site:university th* OR m* now");
-        Assert.assertEquals("URL & prefix - one asterisk", "http://wikipedia.com/IT_University_Copenhagen", result.get(0).getUrl());
+        Assert.assertEquals("URL & prefix - one asterisk", "[Website{url='http://wikipedia.com/IT_University_Copenhagen', title='ITU', words=[This, ITU, site, is, used, for, testing, the, URL, Filter, now, these, are, just, more, words, to, have, this, come, last]}]", result.toString());
     }
 }
