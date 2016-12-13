@@ -155,11 +155,11 @@ public class QueryEngineTest {
 
         // test single word query with asterisk inside the word (not at the end)
         result = orderedQuery.getWebsites("fo*r");
-        Assert.assertEquals("Prefix search - complex multiple asterisks", 0, result.size());
+        Assert.assertEquals("Prefix search - asterisk inside word", 0, result.size());
 
         // test multiple word query with asterisk inside the word
-        result = orderedQuery.getWebsites("fo*r f* words");
-        Assert.assertEquals("Prefix search - complex multiple asterisks", "[Website{url='http://wikipedia.com/IT_University_Copenhagen', title='ITU', words=[This, ITU, site, is, used, for, testing, the, URL, Filter, now, these, are, just, more, words, to, have, this, come, last]}, Website{url='http://example.com/third', title='third', words=[third, website, for, testing, using, some, other, words, for, testing, more]}, Website{url='http://example.com/second', title='second', words=[second, website, for, testing, with, some, different, words, like, with]}]", result.toString());
+        result = orderedQuery.getWebsites("fo*r f* *a words");
+        Assert.assertEquals("Prefix search - asterisk inside word (multiple)", "[Website{url='http://wikipedia.com/IT_University_Copenhagen', title='ITU', words=[This, ITU, site, is, used, for, testing, the, URL, Filter, now, these, are, just, more, words, to, have, this, come, last]}, Website{url='http://example.com/third', title='third', words=[third, website, for, testing, using, some, other, words, for, testing, more]}, Website{url='http://example.com/second', title='second', words=[second, website, for, testing, with, some, different, words, like, with]}]", result.toString());
     }
 
     @Test
